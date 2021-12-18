@@ -3,7 +3,10 @@ const create_account = express.Router()
 import {validate_body_data} from '../validate/validate_body_data.js'
 import {validate_body_keys} from '../validate/validate_body_keys.js'
 import {validate_base64} from '../validate/validate_file.js'
-import {add_photo_to_storage} from '../modules/add_photo_do_storage/add_photo_to_storage.js'
+import {add_photo_to_storage} from '../modules/storage/add_photo_to_storage.js'
+import { makeId } from '../modules/create_id/create_id.js'
+import { add_data_to_firebase } from '../modules/add_update_delete_firebase/add_data.js'
+import { remove_file } from '../modules/storage/delete_photo_from_storage.js'
 import pkg from 'firebase-admin'
 const {auth} = pkg
 create_account.post('/createAccount',async(req,res)=>{
@@ -23,7 +26,7 @@ create_account.post('/createAccount',async(req,res)=>{
     //sprawdzam avatara
     let avatar;
     if(body.avatar === '1'||body.avatar === '2'||body.avatar === '3'){
-        avatar = res.locals.create_account.avatar_information.public_avatars[Number(body.avatar)-1] 
+        avatar = config.avatar_information.public_avatars[Number(body.avatar)-1] 
         custom= true
     }else{
         try {
@@ -38,34 +41,67 @@ create_account.post('/createAccount',async(req,res)=>{
         }
     }
 
-    try {
-       //Tworzenie uzytkownika
 
-        const user =  await auth().createUser({
-            email:body.email,
-            password:body.password,
-            displayName:body.name
+        //Tworzenie uzytkownika
+        auth().createUser({
+            email:body.e_mail,
+            password:body.password
+        }).then(async (user)=>{
+            if(!custom){
+               const tmp_avatar = {
+                    path:`UsersPhotos/${user.uid}/avatar${avatar.end_point}`,
+                    type:avatar.type,
+                    blob:avatar.blob
+                }
+                //dodajemy zdjęcie
+                try {
+                    await add_photo_to_storage(tmp_avatar.blob,tmp_avatar.path,tmp_avatar.type)
+                    avatar = {
+                        path:tmp_avatar.path,
+                        id:makeId(20),
+                        public:false,
+                        type:tmp_avatar.type
+                    }
+                } catch (error) {
+                    //nie dodalo zdjecia to damy mu publiczne niech sie cieszy
+                    avatar = config.avatar_information.public_avatars[0] 
+                }
+
+            }
+                //dodajemy uzytkownika do bazy danych
+                try {
+                    const to_add = {
+                        userName:body.userName,
+                        slots:config.free_slots,
+                        e_mail:body.e_mail,
+                        items:[],
+                        avatar:avatar,
+
+                    }
+                    await add_data_to_firebase({
+                        doc_id:user.uid,
+                        collection_id:'Users',
+                        data_to_add:to_add
+                    })
+                    res.json({message:"Konto zostało utworzone!"})
+                } catch (error) {
+                    //usuwam avatara
+                    if( avatar.public == false)
+                    await remove_file(avatar.path)
+                    auth().deleteUser(user.uid).then((result)=>{
+                        return res.json({message:'Utworzenie konto nie powiodło się.'})
+                    })
+                    .catch((er)=>{
+                        return res.json({message:'Utworzenie konto nie powiodło się.'})
+                    })
+                }
+
+        }).catch((error)=>{
+            if("errorInfo"in error && "message"in error.errorInfo &&error.errorInfo.message === "The email address is already in use by another account.")
+                return res.json({message:"Ten adres e-mail jest już zajęty."})
+                 return res.json({message:'Utworzenie konto nie powiodło się.'})
         })
-        console.log(user.uid)
-        //dodaje zdj do bazy danych
-        if(!custom){
-            avatar = {
-                path:`UsersPhotos/${user.uid}/avatar${avatar.end_point}`,
-                type:avatar.type,
-                blob:avatar.blob
-            }
-            console.log(avatar)
-            //dodajemy zdjęcie
-            try {
-                
-            } catch (error) {
-                
-            }
-        }
-    } catch (info) {
-        console.log(info)
-        return res.json({message:info})
-    }
+
 
 
 
