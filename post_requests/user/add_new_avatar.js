@@ -1,6 +1,6 @@
 import express from 'express'
 const add_new_avatar = express.Router()
-import {validate_body_keys} from '../../validate/validate_body_keys.js'
+import {validate_body_keys_with_return} from '../../validate/validate_body_keys.js'
 import {validate_body_data} from '../../validate/validate_body_data.js'
 import {validate_base64} from '../../validate/validate_file.js'
 import {get_information} from '../../modules/get_info/get_information.js'
@@ -15,9 +15,11 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
     const config = res.locals.update_avatar;
     const avatar_info = res.locals.avatar_information
     let custom;
-    if(!validate_body_keys({body:body,require_to_validate:config.body_keys_require_to_validate,allow_to_pass:config.body_keys_allow_to_pass}))
+    const check_body = validate_body_keys_with_return({body:body,require_to_validate:config.body_keys_require_to_validate,allow_to_pass:config.body_keys_allow_to_pass})
+    if(!check_body)
     return res.json({message:'Body zawiera niedozwolone parametry.'})
-
+    if(typeof check_body === 'string')
+    return res.json({message:'Brak wartości do zmiany'})
 
      //validacje danych jakie dostajemy bez avatara
     const validate = validate_body_data(body,config.validate)
