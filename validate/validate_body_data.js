@@ -1,6 +1,4 @@
 const validate_body_data = (body,i_v)=>{
-    console.log(i_v)
-
     for(let i =0; i<i_v.length;i++){
         //sprawdzam czy jest wymagany i czy istnieje
         if(i_v[i].require_ && body[i_v[i].key] === undefined)
