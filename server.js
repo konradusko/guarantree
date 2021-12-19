@@ -71,9 +71,26 @@ app.post(
 
 /*
 @deleteUserAvatar
+-sprawdzam czy wszystko jest typem string
+-sprawdzam czy występują tagi html
+-sprawdzam czy nie ma zdublowanych wartosci
+-sprawdzam poprawnosc tokenu
+-dołączam avatar_info_user-config
+-dołączam config
 
 */
-app.post('/deleteUserAvatar')
+import {delete_user_avatar} from './post_requests/user/delete_user_avatar.js'
+import {delete_user_avatar_config} from './configs/user/delete_user_avatar_config.js'
+app.post(
+    '/deleteUserAvatar',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    user_avatar_info,
+    delete_user_avatar_config,
+    delete_user_avatar
+    )
 /*
 @addNewUserAvatar
 -sprawdzam czy wszystko jest typem string

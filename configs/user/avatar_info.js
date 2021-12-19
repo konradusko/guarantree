@@ -7,7 +7,7 @@ const user_avatar_info = (req,res,next)=>{
             {
              public:true,
              path:'./path1',
-             type:'image/png',
+             type:'TUTAJ BRAK AVATARAAAAAA, BIALE TLOOOOOOO',
              id:makeId(20)
             },
             {
@@ -21,7 +21,13 @@ const user_avatar_info = (req,res,next)=>{
             path:'./path3',
             type:'image/png',
             id:makeId(20)
-            }
+            },
+            {
+                public:true,
+                path:'./path1',
+                type:'image/png',
+                id:makeId(20)
+               },
         ]
     }
     next()

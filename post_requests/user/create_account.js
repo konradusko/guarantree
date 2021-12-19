@@ -27,7 +27,7 @@ create_account.post('/createAccount',async(req,res)=>{
     //sprawdzam avatara
     let avatar;
     if(body.avatar === '1'||body.avatar === '2'||body.avatar === '3'){
-        avatar = avatar_info.public_avatars[Number(body.avatar)-1] 
+        avatar = avatar_info.public_avatars[Number(body.avatar)] 
         custom= true
     }else{
         try {
