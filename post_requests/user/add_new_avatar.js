@@ -108,8 +108,11 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
                         }
                     } catch (error) {
                         //usuwam zbędne i tyle
-                        if(! avatar.public)
-                        await remove_file(avatar.path)
+                        try {
+                            if(! avatar.public)
+                            await remove_file(avatar.path)
+                        } catch (error) {}
+                     
                         return res.json({message:'Wystąpił błąd, spróbuj ponownie 2.'})
                     }
                 } catch (error) {
@@ -154,8 +157,10 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
                         collection_id:config.collection_id,
                         data_to_add:{avatar}
                     })
-                    if(!current_avatar.avatar_public)
-                    await remove_file(current_avatar.avatar_path)
+                    try {
+                        if(!current_avatar.avatar_public)
+                        await remove_file(current_avatar.avatar_path)
+                    } catch (error) {}
 
                     const tmp_change_avatar = {
                         path:`${config.add_photo_prefix}/${uid}/${makeId(20)}${hold_avatar.end_point}`,

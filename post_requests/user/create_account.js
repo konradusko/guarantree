@@ -43,12 +43,13 @@ create_account.post('/createAccount',async(req,res)=>{
     }
         //Tworzenie uzytkownika
         auth().createUser({
-            email:body.e_mail,
-            password:body.password
+            email:body.email,
+            password:body.password,
+            displayName:body.displayName
         }).then(async (user)=>{
             if(!custom){
                const tmp_avatar = {
-                    path:`UsersPhotos/${user.uid}/${makeId(20)}${avatar.end_point}`,
+                    path:`${config.add_photo_prefix}/${user.uid}/${makeId(20)}${avatar.end_point}`,
                     type:avatar.type,
                     blob:avatar.blob
                 }
@@ -69,9 +70,7 @@ create_account.post('/createAccount',async(req,res)=>{
                 //dodajemy uzytkownika do bazy danych
                 try {
                     const to_add = {
-                        userName:body.userName,
                         slots:config.free_slots,
-                        e_mail:body.e_mail,
                         items:[],
                         avatar:avatar,
                         id:generateGuid()
@@ -86,7 +85,8 @@ create_account.post('/createAccount',async(req,res)=>{
                 } catch (error) {
                     //usuwam avatara
                     if( avatar.public == false)
-                    await remove_file(avatar.path)
+                    try {
+                    await remove_file(avatar.path)} catch (error) {}
                     auth().deleteUser(user.uid).then((result)=>{
                         return res.json({message:'Utworzenie konto nie powiodło się.'})
                     })

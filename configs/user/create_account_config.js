@@ -2,11 +2,12 @@ import {validate_email} from '../../validate/validate_email.js'
 const create_account_config = (req,res,next)=>{
     res.locals.create_account = {
         free_slots:3,
-        body_keys_allow_to_pass:['userName','password','e_mail','avatar',],
+        body_keys_allow_to_pass:['displayName','password','email','avatar',],
         body_keys_require_to_validate:[],
+        add_photo_prefix:'UsersPhotos',
         validate:[
            {
-               key:'userName',
+               key:'displayName',
                require_:true,
                min_length:4,
                max_length:25,
@@ -24,7 +25,7 @@ const create_account_config = (req,res,next)=>{
                error_max:'Hasło nie może być dłuższe niż 25 znaków.'
            },
            {
-               key:'e_mail',
+               key:'email',
                require_:true,
                validate_email:validate_email,
                error_require:'Adres e-mail jest wymagany',
