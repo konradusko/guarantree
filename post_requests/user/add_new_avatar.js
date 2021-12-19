@@ -70,10 +70,10 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
                         data_to_add:{avatar}
                     })
                     try {
-                        token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                        return res.json({messgae:'Avatar został zaktualizowany.',token:token_acces})
+                        token_acces = await create_token_photo(avatar.path,config.create_token_minutes)[0]
+                        return res.json({message:'Avatar został zaktualizowany.',token:token_acces})
                     } catch (error) {
-                        return res.json({messgae:'Avatar został zaktualizowany.'})
+                        return res.json({message:'Avatar został zaktualizowany.'})
                     }
                 } catch (error) {
                     return res.json({message:'Wystąpił błąd, spróbuj ponownie1.'})
@@ -101,10 +101,10 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
                             data_to_add:{avatar}
                         })
                         try {
-                            token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                            return res.json({messgae:'Avatar został zaktualizowany.',token:token_acces})
+                            token_acces = await create_token_photo(avatar.path,config.create_token_minutes)[0]
+                            return res.json({message:'Avatar został zaktualizowany.',token:token_acces})
                         } catch (error) {
-                            return res.json({messgae:'Avatar został zaktualizowany.'})
+                            return res.json({message:'Avatar został zaktualizowany.'})
                         }
                     } catch (error) {
                         //usuwam zbędne i tyle
@@ -136,10 +136,10 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
                         await remove_file(current_avatar.avatar_path)
                     } catch (error) {}
                     try {
-                        token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                        return res.json({messgae:'Avatar został zaktualizowany.',token:token_acces})
+                        token_acces = await create_token_photo(avatar.path,config.create_token_minutes)[0]
+                        return res.json({message:'Avatar został zaktualizowany.',token:token_acces})
                     } catch (error) {
-                        return res.json({messgae:'Avatar został zaktualizowany.'})
+                        return res.json({message:'Avatar został zaktualizowany.'})
                     }
                 } catch (error) {
                     return res.json({message:'Wystąpił błąd, spróbuj ponownie1.'})
@@ -181,10 +181,10 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
                             data_to_add:{avatar}
                         })
                         try {
-                            token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                            return res.json({messgae:'Avatar został zaktualizowany.',token:token_acces})
+                            token_acces = await create_token_photo(avatar.path,config.create_token_minutes)[0]
+                            return res.json({message:'Avatar został zaktualizowany.',token:token_acces})
                         } catch (error) {
-                            return res.json({messgae:'Avatar został zaktualizowany.'})
+                            return res.json({message:'Avatar został zaktualizowany.'})
                         }
                     } catch (error) {
                         return res.json({message:'Nie udało się zaktualizować avatara.'})
