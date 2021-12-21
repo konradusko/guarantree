@@ -2,8 +2,7 @@ import pkg from 'firebase-admin'
 const {storage} = pkg
 const create_token_photo = (file,time)=>{
     return new Promise(async(res,rej)=>{
-        console.log(time)
-        console.log(file)
+
         const my_photo = storage().bucket().file(file)
         if(my_photo.exists()){
             const create_minutes = time*60000

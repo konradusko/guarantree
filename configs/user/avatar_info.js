@@ -3,11 +3,17 @@ const user_avatar_info = (req,res,next)=>{
     res.locals.avatar_information={
         allow_format:["image/png","image/jpg"],
         max_size_of_file:2100000,
+        custom_avatar:{
+            public:true,
+            path:'./path1',
+            type:'TUTAJ MA BYC CUSTOM AVATAR',
+            id:makeId(20)
+           },
         public_avatars:[
             {
              public:true,
              path:'./path1',
-             type:'TUTAJ BRAK AVATARAAAAAA, BIALE TLOOOOOOO',
+             type:'Tavatar',
              id:makeId(20)
             },
             {

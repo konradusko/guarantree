@@ -26,7 +26,7 @@ create_account.post('/createAccount',async(req,res)=>{
     
     //sprawdzam avatara
     let avatar;
-    if(body.avatar === '1'||body.avatar === '2'||body.avatar === '3'){
+    if(Number(body.avatar) >=0 &&Number(body.avatar) <avatar_info.public_avatars.length){
         avatar = avatar_info.public_avatars[Number(body.avatar)] 
         custom= true
     }else{
@@ -64,7 +64,7 @@ create_account.post('/createAccount',async(req,res)=>{
                     }
                 } catch (error) {
                     //nie dodalo zdjecia to damy mu publiczne niech sie cieszy
-                    avatar = avatar_info.public_avatars[0] 
+                    avatar = avatar_info.custom_avatar
                 }
             }
                 //dodajemy uzytkownika do bazy danych

@@ -23,7 +23,7 @@ delete_user_avatar.post('/deleteUserAvatar',async(req,res)=>{
             return res.json({message:'Nie można usunąć publicznego avataru.'})
         
         //update zrobić na publicznego a potem usunac zdjecie
-        const avatar = avatar_info.public_avatars[0] 
+        const avatar = avatar_info.custom_avatar 
         try {
             await update_data({
                 doc_id:uid,
