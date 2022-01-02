@@ -19,6 +19,11 @@ const get_information = (data)=>{
                         avatar_public:firebase_data._fieldsProto.avatar.mapValue.fields.public.booleanValue
                     })
                     break;
+                    case 'get_user_slots':
+                        res({
+                            slots:firebase_data._fieldsProto.slots.integerValue
+                        })
+                    break
                 default:
                     rej()
                     break;

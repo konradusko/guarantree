@@ -87,6 +87,7 @@ create_account.post('/createAccount',async(req,res)=>{
                     if( avatar.public == false)
                     try {
                     await remove_file(avatar.path)} catch (error) {}
+                    //Zrobic funkcje w tle która bedzie co chwile usuwała
                     auth().deleteUser(user.uid).then((result)=>{
                         return res.json({message:'Utworzenie konto nie powiodło się.'})
                     })

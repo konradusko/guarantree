@@ -46,17 +46,7 @@ app.post(
 @deleteAccount
 
 */
-app.post('/deleteAccount')
 
-/*
-@updateAccount
--sprawdzam czy wszystko jest typem string
--sprawdzam czy występują tagi html
--sprawdzam czy nie ma zdublowanych wartosci
--sprawdzam poprawnosc tokenu
--dołączam config
-
-*/
 
 
 /*
@@ -69,6 +59,8 @@ app.post('/deleteAccount')
 -dołączam config
 
 */
+app.post('/deleteAccount')
+
 import {delete_user_avatar} from './post_requests/user/delete_user_avatar.js'
 import {delete_user_avatar_config} from './configs/user/delete_user_avatar_config.js'
 app.post(
@@ -104,8 +96,60 @@ app.post(
     add_new_avatar
     )
 
+// ITEM
+/* ADD ITEM */
+import {add_item_config} from './configs/items_and_events/add_item_config.js'
+import {item_avatar_info} from './configs/items_and_events/avatar_info_item.js'
+import {files_config_item} from './configs/items_and_events/files_config.js'
+import {add_new_item} from './post_requests/item/add_item.js'
+/**
+ * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Dodaje item config
+ * Dodaje avatar config
+ * Dodaje files config
+ */
+app.post(
+    '/addItem',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    add_item_config,
+    item_avatar_info,
+    files_config_item,
+    add_new_item
+    )
 
+/**
+ * UPDATE ITEM
+ */
+app.post('/updateItem')
 
+/**
+ * Delete Avatar
+ */
+app.post('/deleteItemAvatar')
+
+/**
+ * Add new Avatar
+ */
+app.post('/addNewAvatarItem')
+
+/**
+ * Remove photo
+ */
+app.post('/removeItemFile')
+/**
+ * Add new files
+ */
+app.post('/addNewFileItem')
+/**
+ * Delete item
+ */
+app.post('/deleteItem')
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
   });

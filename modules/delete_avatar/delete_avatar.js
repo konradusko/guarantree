@@ -1,9 +1,9 @@
 
 import { get_information } from '../../modules/get_info/get_information.js'
-import { remove_file } from '../storage/delete_photo_from_storage'
+import { remove_file } from '../storage/delete_photo_from_storage.js'
 import { update_data } from '../../modules/add_update_delete_firebase/update_data.js'
 const delete_avatar = (...args)=>{
-    return new Promise((res,rej)=>{
+    return new Promise(async(res,rej)=>{
            //0 config
            //1 uid
            //2 avatar info
