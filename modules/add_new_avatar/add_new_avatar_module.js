@@ -63,7 +63,7 @@ const add_new_avatar_module = (data)=>{
                             return res({message:'Avatar został zaktualizowany.'})
                         }
                     } catch (error) {
-                        return res({message:'Wystąpił błąd, spróbuj ponownie1.'})
+                        return rej({message:'Wystąpił błąd, spróbuj ponownie1.'})
                     }
                 }else{
                     // tutaj wystarczy tylko dodać avatara nowego do bazy danych i zaktualizować informacje

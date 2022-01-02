@@ -11,6 +11,12 @@ const validate_body_data = (body,i_v)=>{
                 return i_v[i].error_max
             if('validate_email' in i_v[i] && !(i_v[i].validate_email(body[i_v[i].key])))
                 return i_v[i].error_email
+            if('validate_files' in i_v[i] && i_v[i].validate_files(body[i_v[i].key]))
+                return i_v[i].error_files
+            if('validate_warranty_end_date' in i_v[i] && i_v[i].validate_warranty_end_date(body[i_v[i].key]))
+                return i_v[i].warranty_end_date_error
+            if('validate_warranty_start_date' in i_v[i] && i_v[i].validate_warranty_start_date(body[i_v[i].key]))
+                return i_v[i].warranty_start_date_error
         }
 
     }

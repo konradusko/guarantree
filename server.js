@@ -57,17 +57,7 @@ app.post('/deleteAccount')
 -dołączam config
 
 */
-import {update_user} from './post_requests/user/update_user.js'
-import {update_account_config} from './configs/user/update_account_config.js'
-app.post(
-    '/updateAccount',    
-    middleware_type_of_data,
-    middleware_find_html,
-    check_duplicate_exists,
-    check_token_middleware,
-    update_account_config,
-    update_user
-)
+
 
 /*
 @deleteUserAvatar

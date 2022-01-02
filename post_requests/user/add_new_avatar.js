@@ -13,7 +13,7 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
     if(!check_body)
     return res.json({message:'Body zawiera niedozwolone parametry.'})
     if(typeof check_body === 'string')
-    return res.json({message:'Brak wartości do zmiany'})
+    return res.json({message:check_body})
 
     
      //validacje danych jakie dostajemy bez avatara
