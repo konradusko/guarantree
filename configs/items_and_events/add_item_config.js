@@ -10,6 +10,14 @@ const add_item_config = (req,res,next)=>{
             collection_id:'Users',
             type:"get_user_slots"
         },
+        add_item_to_user:{
+            collection_id:'Users',
+            type:"user_items"
+        },
+        tokens:{
+            avatar:30,
+            photo:30
+        },
         validate:[
             {
                 key:'avatar',

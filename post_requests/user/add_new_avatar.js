@@ -4,7 +4,8 @@ import {validate_body_keys_with_return} from '../../validate/validate_body_keys.
 import {validate_body_data} from '../../validate/validate_body_data.js'
 import {add_new_avatar_module} from '../../modules/add_new_avatar/add_new_avatar_module.js'
 add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
-    const uid = res.locals.uid.uid
+    try {
+        const uid = res.locals.uid.uid
     const body = req.body;
     const config = res.locals.update_avatar;
     const avatar_info = res.locals.avatar_information
@@ -34,6 +35,10 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
     } catch (error) {
         return res.json(error)
     }
+    } catch (error) {
+        return res.json({message:'Nie udało się dodać avataru.'})
+    }
+    
    
 })
 export{add_new_avatar}

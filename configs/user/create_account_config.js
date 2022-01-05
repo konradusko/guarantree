@@ -5,6 +5,7 @@ const create_account_config = (req,res,next)=>{
         body_keys_allow_to_pass:['displayName','password','email','avatar',],
         body_keys_require_to_validate:[],
         add_photo_prefix:'UsersPhotos',
+        collection_id:'Users',
         validate:[
            {
                key:'displayName',

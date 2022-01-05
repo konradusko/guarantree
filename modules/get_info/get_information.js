@@ -20,10 +20,13 @@ const get_information = (data)=>{
                     })
                     break;
                     case 'get_user_slots':
-                        res({
-                            slots:firebase_data._fieldsProto.slots.integerValue
-                        })
+                        res(firebase_data._fieldsProto.slots.integerValue)
                     break
+                    case "user_items":
+                        res({
+                            items:firebase_data._fieldsProto.items.arrayValue.values
+                        })
+                    break;
                 default:
                     rej()
                     break;
