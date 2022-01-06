@@ -197,8 +197,25 @@ app.post(
 
 /**
  * Remove files
- */
-app.post('/removeItemFile')
+ *  Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * Załączam config  
+*/
+import {remove_item_files_config} from './configs/items_and_events/remove_item_files_config.js'
+import {remove_item_file} from './post_requests/item/remove_item_file.js'
+app.post(
+    '/removeItemFile',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    remove_item_files_config,
+    remove_item_file
+)
 /**
  * Add new files
  * Sprawdzam czy wszystko jest typem string

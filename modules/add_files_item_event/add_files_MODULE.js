@@ -4,7 +4,7 @@ import { get_information } from '../../modules/get_info/get_information.js'
 import {add_files} from '../../modules/add_files_item_event/add_files.js'
 import { update_data } from '../../modules/add_update_delete_firebase/update_data.js'
 import {create_token_photo} from '../../modules/token/create_photo_acces_token.js'
-
+import {remove_not_added_files} from '../../modules/remove_files_not_added/remove_not_added_files.js'
 
 
 const add_file_modules = (...args)=>{
@@ -57,29 +57,36 @@ const add_file_modules = (...args)=>{
                 type:files_from_firebase[e].mapValue.fields.type.stringValue
             })
         }
-        await update_data( {
-            doc_id:item_unique_id,
-            collection_id:config.item_prefix,
-            data_to_add:{files:array_for_file_base}})
-
-            for(const xd in _files_to_add){
-                try {
-                    token_from_firebase = await create_token_photo(_files_to_add[xd].path,config.tokens.files)
-                    tokens.push({
-                        token:token_from_firebase[0],
-                        id:_files_to_add[xd].id,
-                        type:_files_to_add[xd].type
-                    })
-                } catch (error) {
-                    tokens.push({
-                        token:'',
-                        id:_files_to_add[xd].id,
-                        type:_files_to_add[xd].type
-                    })
+        try {
+            await update_data( {
+                doc_id:item_unique_id,
+                collection_id:config.item_prefix,
+                data_to_add:{files:array_for_file_base}})
+    
+                for(const xd in _files_to_add){
+                    try {
+                        token_from_firebase = await create_token_photo(_files_to_add[xd].path,config.tokens.files)
+                        tokens.push({
+                            token:token_from_firebase[0],
+                            id:_files_to_add[xd].id,
+                            type:_files_to_add[xd].type
+                        })
+                    } catch (error) {
+                        tokens.push({
+                            token:'',
+                            id:_files_to_add[xd].id,
+                            type:_files_to_add[xd].type
+                        })
+                    }
                 }
-            }
-
-        return res({message:`Liczba plików które zostały dodane: ${_files_to_add.length}/${length_from_user}`,tokens})
+    
+            return res({message:`Liczba plików które zostały dodane: ${_files_to_add.length}/${length_from_user}`,tokens})
+        } catch (error) {
+            //usunac teraz pliki które zostały
+            remove_not_added_files(_files_to_add)
+            return rej({message:'Nie udało się dodać plików.'})
+        }
+       
         } catch (error) {
            return rej({message:'Coś poszło nie tak.'})
         }
