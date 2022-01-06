@@ -58,7 +58,7 @@ const add_new_avatar_module = (data)=>{
                         })
                         try {
                             token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                            return res({message:'Avatar został zaktualizowany.',token:token_acces})
+                            return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
                         } catch (error) {
                             return res({message:'Avatar został zaktualizowany.'})
                         }
@@ -89,7 +89,7 @@ const add_new_avatar_module = (data)=>{
                             })
                             try {
                                 token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                                return res({message:'Avatar został zaktualizowany.',token:token_acces})
+                                return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
                             } catch (error) {
                                 return res({message:'Avatar został zaktualizowany.'})
                             }
@@ -124,7 +124,7 @@ const add_new_avatar_module = (data)=>{
                         } catch (error) {}
                         try {
                             token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                            return res({message:'Avatar został zaktualizowany.',token:token_acces})
+                            return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
                         } catch (error) {
                             return res({message:'Avatar został zaktualizowany.'})
                         }
@@ -171,7 +171,7 @@ const add_new_avatar_module = (data)=>{
                                 data_to_add:{avatar}
                             })
                             try {
-                                token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
+                                token_acces = await create_token_photo(avatar.path,config.create_token_minutes[0])
                                 console.log(token_acces)
                                 return res({message:'Avatar został zaktualizowany.',token:token_acces})
                             } catch (error) {

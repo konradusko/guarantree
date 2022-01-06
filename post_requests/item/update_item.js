@@ -40,7 +40,7 @@ update_item.post('/updateItem',async(req,res)=>{
         await update_data({
             doc_id:item_unique_id,
             collection_id:config.item_prefix,
-            data_to_add:_to_update//publiczny avatar
+            data_to_add:_to_update
         })
         return res.json({message:'Przedmiot został zaktualizowany.'})
     } catch (error) {

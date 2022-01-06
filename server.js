@@ -149,13 +149,51 @@ app.post(
 
 /**
  * Delete Avatar
+ *  * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * dołączam configi
+ * dołączam silnik
  */
-app.post('/deleteItemAvatar')
+import {delete_item_avatar_config} from './configs/items_and_events/delete_item_avatar_config.js'
+import {delete_item_avatar} from './post_requests/item/delete_item_avatar.js'
+app.post(
+    '/deleteItemAvatar',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    item_avatar_info,
+    delete_item_avatar_config,
+    delete_item_avatar
+)
 
 /**
  * Add new Avatar
+ *  * * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * dołączam configi
+ * dołączam silnik
  */
-app.post('/addNewAvatarItem')
+import {add_new_avatar_item} from './post_requests/item/add_new_avatar_item.js'
+import {add_new_avatar_item_config} from './configs/items_and_events/add_new_avatar_item_config.js'
+app.post(
+    '/addNewAvatarItem',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    item_avatar_info,
+    add_new_avatar_item_config,
+    add_new_avatar_item
+    )
 
 /**
  * Remove photo

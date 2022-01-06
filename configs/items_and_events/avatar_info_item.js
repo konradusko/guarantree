@@ -30,7 +30,7 @@ const item_avatar_info = (req,res,next)=>{
             },
             {
                 public:true,
-                path:'./path1',
+                path:'./path4',
                 type:'image/png',
                 id:makeId(20)
                },
