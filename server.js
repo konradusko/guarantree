@@ -46,6 +46,7 @@ app.post(
 @deleteAccount
 
 */
+app.post('/deleteAccount')
 
 
 
@@ -59,7 +60,6 @@ app.post(
 -dołączam config
 
 */
-app.post('/deleteAccount')
 
 import {delete_user_avatar} from './post_requests/user/delete_user_avatar.js'
 import {delete_user_avatar_config} from './configs/user/delete_user_avatar_config.js'
@@ -196,13 +196,31 @@ app.post(
     )
 
 /**
- * Remove photo
+ * Remove files
  */
 app.post('/removeItemFile')
 /**
  * Add new files
+ * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
  */
-app.post('/addNewFileItem')
+import {add_new_item_file_config} from './configs/items_and_events/add_new_file_item_config.js'
+import {add_item_files} from './post_requests/item/add_item_files.js'
+app.post(
+    '/addNewFileItem',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    add_new_item_file_config,
+    files_config_item,
+    add_item_files
+
+)
 /**
  * Delete item
  */

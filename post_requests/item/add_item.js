@@ -165,7 +165,13 @@ add_new_item.post('/addItem',async(req,res)=>{
                             id:_files_to_add[xd].id,
                             type:_files_to_add[xd].type
                         })
-                    } catch (error) {}
+                    } catch (error) {
+                        tokens.files.push({
+                            token:'',
+                            id:_files_to_add[xd].id,
+                            type:_files_to_add[xd].type
+                        })
+                    }
                 }
                 const to_response_item={
                     warranty_end_date:item_to_add.warranty_end_date,

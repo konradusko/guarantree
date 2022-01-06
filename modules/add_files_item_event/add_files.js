@@ -25,7 +25,6 @@ const add_files = (...args) =>{
                 }
                 tmp_array.push(tmp_obj)
             } catch (error) {
-                console.log(error)
             }
             
         }

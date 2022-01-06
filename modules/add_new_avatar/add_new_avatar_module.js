@@ -60,7 +60,7 @@ const add_new_avatar_module = (data)=>{
                             token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
                             return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
                         } catch (error) {
-                            return res({message:'Avatar został zaktualizowany.'})
+                            return res({message:'Avatar został zaktualizowany.',token:''})
                         }
                     } catch (error) {
                         return rej({message:'Wystąpił błąd, spróbuj ponownie1.'})

@@ -32,6 +32,9 @@ const get_information = (data)=>{
                             owner_id:firebase_data._fieldsProto.owner.stringValue
                         })
                     break;
+                    case 'files_length_':
+                        res(firebase_data._fieldsProto.files.arrayValue.values)
+                    break;
                 default:
                     rej()
                     break;
