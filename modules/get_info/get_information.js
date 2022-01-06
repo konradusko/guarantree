@@ -27,6 +27,11 @@ const get_information = (data)=>{
                             items:firebase_data._fieldsProto.items.arrayValue.values
                         })
                     break;
+                    case 'item_owner':
+                        res({
+                            owner_id:firebase_data._fieldsProto.owner.stringValue
+                        })
+                    break;
                 default:
                     rej()
                     break;

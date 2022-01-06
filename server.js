@@ -125,8 +125,27 @@ app.post(
 
 /**
  * UPDATE ITEM
+ * * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * załączam token
+ * załączam logike aktualizowania przedmiotu
  */
-app.post('/updateItem')
+import {update_item_config} from './configs/items_and_events/update_item_config.js'
+import {check_item_public_id} from './middlewares/check_item_public_id.js'
+import {update_item} from './post_requests/item/update_item.js'
+app.post(
+    '/updateItem',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    update_item_config,
+    update_item
+)
 
 /**
  * Delete Avatar

@@ -44,8 +44,9 @@ add_new_item.post('/addItem',async(req,res)=>{
         } catch (error) {
             return res.json({message:'Wystąpił błąd podczas dodawania przedmiotu.'})
         }
-    
-        const unique_item_id = generateGuid()+makeId(15)
+        const public_id = generateGuid()
+        const unique_item_id = `${generateGuid()}.${public_id}`
+        
         let _files_to_add = new Array
         //sprawdzam avatara
         let custom
@@ -123,7 +124,8 @@ add_new_item.post('/addItem',async(req,res)=>{
             phone_number_seller:'phone_number_seller' in body?body.phone_number_seller:'',
             comment:'comment'in body?body.comment:'',
             events:[],
-            owner:uid
+            owner:uid,
+            public_id_item:public_id
         }
         try {
             //dodaje item do bazy danych
@@ -177,7 +179,8 @@ add_new_item.post('/addItem',async(req,res)=>{
                     seller_adress:item_to_add.seller_adress,
                     seller_email:item_to_add.seller_email,
                     phone_number_seller:item_to_add.phone_number_seller,
-                    comment:item_to_add. comment
+                    comment:item_to_add.comment,
+                    public_id_item:item_to_add.public_id_item
 
                 }
                 return res.json({message:'Przedmiot został utworzony',item:to_response_item,tokens:tokens})
