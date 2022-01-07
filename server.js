@@ -241,6 +241,7 @@ app.post(
 /**
  * Delete item
  */
+ app.post('/deleteItem')
 
 //event
 /**
@@ -260,7 +261,6 @@ app.post('/addEvent',
     check_duplicate_exists,
     check_token_middleware,
     check_item_public_id,
-    files_config_item,
     add_event_config,
     add_event
     )
@@ -271,18 +271,57 @@ app.post('/updateEvent')
 
 /**
  * Dodanie plików
+ *   Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * dołączam ogólny config plików
+ * dołączam indywidualny config
+ * 
  */
-app.post('/addFilesEvent')
+import {check_event_public_id} from './middlewares/check_event_public_id.js'
+import {add_event_files} from './post_requests/event/add_event_file.js'
+import {add_new_event_file_config} from './configs/items_and_events/add_new_event_file_config.js'
+app.post(
+    '/addFilesEvent',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    check_event_public_id,
+    files_config_item,
+    add_new_event_file_config,
+    add_event_files
+)
 /**
  * Usunięcie plików
+ * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * dołączam ogólny config plików
  */
-app.post('/deleteFilesEvent')
+import {remove_event_files_config} from './configs/items_and_events/remove_event_files_config.js'
+import {remove_event_file} from './post_requests/event/remove_event_file.js'
+app.post('/deleteFilesEvent',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    check_event_public_id,
+    remove_event_files_config,
+    remove_event_file
+
+)
 
 /**
  * Usunięcie eventu
  */
-
-app.post('/deleteItem')
+app.post('/deleteEvent')
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
   });

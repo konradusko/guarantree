@@ -42,7 +42,8 @@ const remove_files_module = (...data)=>{
                 new_files_to_add.push({
                     id:new_files[_].mapValue.fields.id.stringValue,
                     path:new_files[_].mapValue.fields.path.stringValue,
-                    type:new_files[_].mapValue.fields.type.stringValue
+                    type:new_files[_].mapValue.fields.type.stringValue,
+                    belong:files_from_firebase[_].mapValue.fields.belong.stringValue
                 })
             }
             await update_data( {

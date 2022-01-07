@@ -38,7 +38,6 @@ add_event.post('/addEvent', async(req,res)=>{
         const public_id = generateGuid()
         const unique_event_id = `${generateGuid()}.${public_id}`
 
-        console.log(event_from_firebase)
 
         let _files_to_add = new Array
 
@@ -83,7 +82,6 @@ add_event.post('/addEvent', async(req,res)=>{
             }
             let token_from_firebase;
             let tokens = new Array
-            console.log(_files_to_add)
             for(const xde in _files_to_add){
                 try {
                     token_from_firebase = await create_token_photo(_files_to_add[xde].path,config.tokens.photo)
@@ -104,6 +102,7 @@ add_event.post('/addEvent', async(req,res)=>{
             }
             return res.json({message:"Wydarzenie zostało dodane!",event:to_response_event,tokens})
         } catch (error) {
+            let files_to_remove = new Array
             for(const t in _files_to_add){
                 files_to_remove.push(_files_to_add[t])
             }

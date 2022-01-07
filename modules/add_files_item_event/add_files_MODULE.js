@@ -10,18 +10,19 @@ import {remove_not_added_files} from '../../modules/remove_files_not_added/remov
 const add_file_modules = (...args)=>{
     return new Promise(async(res,rej)=>{
         /*
-        0 item_unique_id 
+        0 item_unique_id //to gdzie dodać zdjecie
         1 config 
         2 files_info 
         3 body 
         4 length_from_user 
-        5 belong
+        5 to_gdzie dodac przedmiot
         */
        const item_unique_id = args[0],
             config = args[1],
             files_info = args[2],
             body = args[3],
-            length_from_user = args[4]
+            length_from_user = args[4],
+            second_unique_id = args[5]
           
 
         try {
@@ -38,7 +39,7 @@ const add_file_modules = (...args)=>{
        
            const files_from_firebase = await get_information({
                 collection_id:config.get_files_length.prefix,
-                doc_id:item_unique_id,
+                doc_id:second_unique_id,
                 type:config.get_files_length.type
             })
         if(files_from_firebase.length+length_from_user > files_info.max_file_in_request)
@@ -56,12 +57,13 @@ const add_file_modules = (...args)=>{
             array_for_file_base.push({
                 path:files_from_firebase[e].mapValue.fields.path.stringValue,
                 id:files_from_firebase[e].mapValue.fields.id.stringValue,
-                type:files_from_firebase[e].mapValue.fields.type.stringValue
+                type:files_from_firebase[e].mapValue.fields.type.stringValue,
+                belong:files_from_firebase[e].mapValue.fields.belong.stringValue
             })
         }
         try {
             await update_data( {
-                doc_id:item_unique_id,
+                doc_id:second_unique_id,
                 collection_id:config.item_prefix,
                 data_to_add:{files:array_for_file_base}})
     
