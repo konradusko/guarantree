@@ -44,7 +44,7 @@ remove_event.post('/deleteEvent',async(req,res)=>{
             remove_item_from_db(config.prefix,event_unique_id)
             let files_to_remove = new Array
             for(const t in files_to_delete){
-                files_to_remove.push(files_to_delete[t].mapValue.fields.path.stringValue)
+                files_to_remove.push({path:files_to_delete[t].mapValue.fields.path.stringValue})
             }
             console.log(files_to_remove)
             remove_not_added_files(files_to_remove)
