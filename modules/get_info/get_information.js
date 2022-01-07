@@ -35,6 +35,9 @@ const get_information = (data)=>{
                     case 'files_length_':
                         res(firebase_data._fieldsProto.files.arrayValue.values)
                     break;
+                    case 'events_length':
+                        res(firebase_data._fieldsProto.events.arrayValue.values)
+                    break;
                 default:
                     rej()
                     break;

@@ -241,6 +241,47 @@ app.post(
 /**
  * Delete item
  */
+
+//event
+/**
+ * Dodanie eventu
+ * * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * dołączam ogólny config plików
+ */
+import {add_event_config} from './configs/items_and_events/add_event_config.js'
+import {add_event} from './post_requests/event/add_event.js'
+app.post('/addEvent',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    files_config_item,
+    add_event_config,
+    add_event
+    )
+/**
+ * Aktualizowanie eventu
+ */
+app.post('/updateEvent')
+
+/**
+ * Dodanie plików
+ */
+app.post('/addFilesEvent')
+/**
+ * Usunięcie plików
+ */
+app.post('/deleteFilesEvent')
+
+/**
+ * Usunięcie eventu
+ */
+
 app.post('/deleteItem')
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);

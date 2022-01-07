@@ -6,6 +6,7 @@ const add_new_item_file_config = (req,res,next)=>{
         body_keys_require_to_validate:['token','public_id_item'],
         item_prefix:'Items',
         add_photo_prefix:'Items',
+        belong:'item',
         get_files_length:{
             prefix:'Items',
             type:'files_length_'

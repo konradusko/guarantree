@@ -6,6 +6,7 @@ const add_files = (...args) =>{
     //1 validate info
     //2 config
     //3 uid - unikalne id przedmiotu
+ 
     return new Promise(async(res,rej)=>{
         const files = args[0],avatar_info = args[1],config = args[2],uid = args[3]
         let tmp_base_64,tmp_obj,tmp_array = new Array,array_to_return = new Array
@@ -21,7 +22,8 @@ const add_files = (...args) =>{
                     path:`${config.add_photo_prefix}/${uid}/${makeId(20)}${tmp_base_64.end_point}`,
                     id:makeId(20),
                     type:tmp_base_64.type,
-                    blob:tmp_base_64.blob
+                    blob:tmp_base_64.blob,
+                    belong:config.belong
                 }
                 tmp_array.push(tmp_obj)
             } catch (error) {

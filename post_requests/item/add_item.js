@@ -88,7 +88,7 @@ add_new_item.post('/addItem',async(req,res)=>{
             }
         }
         //Dodaje pliki do bazy danych
-        if(body.files.length >0){
+        if('files' in body && body.files.length >0){
             try {
                 _files_to_add = await add_files(body.files,files_config,config,unique_item_id)
             } catch (error) {
@@ -157,19 +157,22 @@ add_new_item.post('/addItem',async(req,res)=>{
                     token_from_firebase = await create_token_photo(avatar.path,config.tokens.avatar)
                     tokens.avatar=token_from_firebase[0]
                 } catch (error) {}
+                
                 for(const xd in _files_to_add){
                     try {
                         token_from_firebase = await create_token_photo(_files_to_add[xd].path,config.tokens.photo)
                         tokens.files.push({
                             token:token_from_firebase[0],
                             id:_files_to_add[xd].id,
-                            type:_files_to_add[xd].type
+                            type:_files_to_add[xd].type,
+                            belong:_files_to_add[xd].belong
                         })
                     } catch (error) {
                         tokens.files.push({
                             token:'',
                             id:_files_to_add[xd].id,
-                            type:_files_to_add[xd].type
+                            type:_files_to_add[xd].type,
+                            belong:_files_to_add[xd].belong
                         })
                     }
                 }

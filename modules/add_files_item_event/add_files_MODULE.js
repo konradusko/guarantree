@@ -15,12 +15,14 @@ const add_file_modules = (...args)=>{
         2 files_info 
         3 body 
         4 length_from_user 
+        5 belong
         */
        const item_unique_id = args[0],
             config = args[1],
             files_info = args[2],
             body = args[3],
             length_from_user = args[4]
+          
 
         try {
             if(length_from_user === 0)
@@ -69,13 +71,15 @@ const add_file_modules = (...args)=>{
                         tokens.push({
                             token:token_from_firebase[0],
                             id:_files_to_add[xd].id,
-                            type:_files_to_add[xd].type
+                            type:_files_to_add[xd].type,
+                            belong:_files_to_add[xd].belong
                         })
                     } catch (error) {
                         tokens.push({
                             token:'',
                             id:_files_to_add[xd].id,
-                            type:_files_to_add[xd].type
+                            type:_files_to_add[xd].type,
+                            belong:_files_to_add[xd].belong
                         })
                     }
                 }
