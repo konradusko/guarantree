@@ -26,16 +26,18 @@ remove_user.post('/deleteAccount', async(req,res)=>{
         //pobrać eventy 
         let tmp;
         let _events_to_remove = new Array
-        try {
+     
             for(const x in items){
+                try {
                 tmp = await get_information({
                     collection_id:config.get_events_items.collection_id,
                     doc_id:items[x].stringValue,
                     type:config.get_events_items.type
                 })
                 _events_to_remove = _events_to_remove.concat(tmp)
+                 } catch (error) {        }
             }
-        } catch (error) {        }
+       
        
         auth().deleteUser(uid).then(()=>{
             for(const i in items){
