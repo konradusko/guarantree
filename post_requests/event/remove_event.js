@@ -41,13 +41,18 @@ remove_event.post('/deleteEvent',async(req,res)=>{
             })
             //usunąć pliki
             //usunąć z bazy danych
-            remove_item_from_db(config.prefix,event_unique_id)
+            try {
+               remove_item_from_db(config.prefix,event_unique_id)
+            } catch (error) {
+            }
             let files_to_remove = new Array
             for(const t in files_to_delete){
                 files_to_remove.push({path:files_to_delete[t].mapValue.fields.path.stringValue})
             }
-            console.log(files_to_remove)
-            remove_not_added_files(files_to_remove)
+            try {
+                remove_not_added_files(files_to_remove)
+            } catch (error) {
+            }
             return res.json({message:'Wydarzenie zostało usunięte.'})
         } catch (error) {
             console.log(error)

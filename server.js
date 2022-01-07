@@ -46,7 +46,16 @@ app.post(
 @deleteAccount
 
 */
-app.post('/deleteAccount')
+import {remove_user_config} from './configs/removes/remove_user_config.js'
+import {remove_user} from './post_requests/user/remove_user.js'
+app.post('/deleteAccount',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    remove_user_config,
+    remove_user
+        )
 
 
 
