@@ -241,7 +241,17 @@ app.post(
 /**
  * Delete item
  */
- app.post('/deleteItem')
+import {remove_item_config} from './configs/removes/remove_item_config.js'
+import {remove_item} from './post_requests/item/remove_item.js'
+ app.post('/deleteItem',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    remove_item_config,
+    remove_item
+    )
 
 //event
 /**
