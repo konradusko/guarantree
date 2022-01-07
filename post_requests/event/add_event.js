@@ -9,6 +9,7 @@ import {add_data_to_firebase} from '../../modules/add_update_delete_firebase/add
 import {remove_not_added_files} from '../../modules/remove_files_not_added/remove_not_added_files.js'
 import {update_data} from '../../modules/add_update_delete_firebase/update_data.js'
 import {create_token_photo} from '../../modules/token/create_photo_acces_token.js'
+import {remove_item_from_db} from '../../modules/add_update_delete_firebase/delete_data.js'
 add_event.post('/addEvent', async(req,res)=>{
     try {
         const uid = res.locals.uid.uid
@@ -69,48 +70,61 @@ add_event.post('/addEvent', async(req,res)=>{
             for(const xd in event_from_firebase){
                 new_Events.push(event_from_firebase[xd].stringValue)
             }
-
-            await update_data( {
-                doc_id:item_unique_id,
-                collection_id:config.add_event_to_item_prefix,
-                data_to_add:{events:new_Events}})
-         
-            const to_response_event = {
-                date_of_event:event_to_add.date_of_event,
-                event_name:event_to_add.event_name,
-                event_public_id:event_to_add.public_id
-            }
-            let token_from_firebase;
-            let tokens = new Array
-            for(const xde in _files_to_add){
-                try {
-                    token_from_firebase = await create_token_photo(_files_to_add[xde].path,config.tokens.photo)
-                    tokens.push({
-                        token:token_from_firebase[0],
-                        id:_files_to_add[xde].id,
-                        type:_files_to_add[xde].type,
-                        belong:_files_to_add[xde].belong
-                    })
-                } catch (error) {
-                    tokens.push({
-                        token:'',
-                        id:_files_to_add[xde].id,
-                        type:_files_to_add[xde].type,
-                        belong:_files_to_add[xde].belong
-                    })
+            try {
+                await update_data( {
+                    doc_id:item_unique_id,
+                    collection_id:config.add_event_to_item_prefix,
+                    data_to_add:{events:new_Events}})
+             
+                const to_response_event = {
+                    date_of_event:event_to_add.date_of_event,
+                    event_name:event_to_add.event_name,
+                    event_public_id:event_to_add.public_id
                 }
+                let token_from_firebase;
+                let tokens = new Array
+                console.log(_files_to_add.length)
+                for(const xde in _files_to_add){
+                    try {
+                        token_from_firebase = await create_token_photo(_files_to_add[xde].path,config.tokens.photo)
+                        tokens.push({
+                            token:token_from_firebase[0],
+                            id:_files_to_add[xde].id,
+                            type:_files_to_add[xde].type,
+                            belong:_files_to_add[xde].belong
+                        })
+                    } catch (error) {
+                        tokens.push({
+                            token:'',
+                            id:_files_to_add[xde].id,
+                            type:_files_to_add[xde].type,
+                            belong:_files_to_add[xde].belong
+                        })
+                    }
+                }
+                console.log(tokens)
+                return res.json({message:"Wydarzenie zostało dodane!",event:to_response_event,tokens})
+            } catch (error) {
+                console.log(error)
+                remove_item_from_db(config.prefix_add_event,unique_event_id)
+                let files_to_remove = new Array
+                for(const t in _files_to_add){
+                    files_to_remove.push(_files_to_add[t])
+                }
+                remove_not_added_files(files_to_remove)
+                return res.json({message:'Nie udało się dodać wydarzenia3.'})
             }
-            return res.json({message:"Wydarzenie zostało dodane!",event:to_response_event,tokens})
+           
         } catch (error) {
             let files_to_remove = new Array
             for(const t in _files_to_add){
                 files_to_remove.push(_files_to_add[t])
             }
             remove_not_added_files(files_to_remove)
-            return res.json({message:'Nie udało się dodać przedmiotu.'})
+            return res.json({message:'Nie udało się dodać wydarzenia2.'})
         }
     } catch (error) {
-        return res.json({message:'Nie udało się dodać wydarzenia.'})
+        return res.json({message:'Nie udało się dodać wydarzenia1.'})
     }
 })
 export{add_event}

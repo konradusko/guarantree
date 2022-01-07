@@ -262,12 +262,32 @@ app.post('/addEvent',
     check_token_middleware,
     check_item_public_id,
     add_event_config,
+    files_config_item,
     add_event
     )
 /**
  * Aktualizowanie eventu
+ * Sprawdzam czy wszystko jest typem string
+ * Sprawdzam czy nie występują tagi HTML
+ * Sprawdzam czy nie ma zduplikowanych wartosci
+ * Sprawdzam token
+ * Sprawdzam publiczne id
+ * dołączam ogólny config plików
+ * dołączam indywidualny config
  */
-app.post('/updateEvent')
+import {update_event_config} from './configs/items_and_events/update_event_config.js'
+import {update_event} from './post_requests/event/update_event.js'
+app.post('/updateEvent',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    check_event_public_id,
+    update_event_config,
+    update_event
+
+)
 
 /**
  * Dodanie plików
@@ -321,7 +341,19 @@ app.post('/deleteFilesEvent',
 /**
  * Usunięcie eventu
  */
-app.post('/deleteEvent')
+import {remove_event_config} from './configs/removes/remove_event_config.js'
+import {remove_event} from './post_requests/event/remove_event.js'
+app.post('/deleteEvent',
+    middleware_type_of_data,
+    middleware_find_html,
+    check_duplicate_exists,
+    check_token_middleware,
+    check_item_public_id,
+    check_event_public_id,
+    remove_event_config,
+    remove_event
+    )
+
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
   });

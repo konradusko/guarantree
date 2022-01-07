@@ -3,7 +3,6 @@ const {firestore} = pkg
 
 const update_data = (data)=>{
     return new Promise((res,rej)=>{
- 
         const {
             doc_id,
             collection_id,
