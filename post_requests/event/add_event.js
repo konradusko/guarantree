@@ -83,7 +83,7 @@ add_event.post('/addEvent', async(req,res)=>{
                 }
                 let token_from_firebase;
                 let tokens = new Array
-                console.log(_files_to_add.length)
+        
                 for(const xde in _files_to_add){
                     try {
                         token_from_firebase = await create_token_photo(_files_to_add[xde].path,config.tokens.photo)
@@ -102,7 +102,7 @@ add_event.post('/addEvent', async(req,res)=>{
                         })
                     }
                 }
-                console.log(tokens)
+        
                 return res.json({message:"Wydarzenie zostało dodane!",event:to_response_event,tokens})
             } catch (error) {
                 console.log(error)

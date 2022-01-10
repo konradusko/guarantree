@@ -35,7 +35,6 @@ remove_item.post('/deleteItem',async(req,res)=>{
                 type:config.get_events.type
             })
         } catch (error) {
-            
         }
       
 
@@ -56,11 +55,14 @@ remove_item.post('/deleteItem',async(req,res)=>{
                 data_to_add:{items:items_to_add}
             })
             //usuwam wszystkie eventy
-            for(const s in events){
-                try {
-                     remove_item_from_db(config.prefix_remove_events,events[s].stringValue)
-                } catch (error) {}
+            if( events.length !=0){
+                for(const s in events){
+                    try {
+                         remove_item_from_db(config.prefix_remove_events,events[s].stringValue)
+                    } catch (error) {}
+                }
             }
+          
             //usuwam przedmiot z bazy danych
             try {
               remove_item_from_db(config.prefix_remove_item,item_unique_id)

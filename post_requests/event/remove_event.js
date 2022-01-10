@@ -19,11 +19,15 @@ remove_event.post('/deleteEvent',async(req,res)=>{
             doc_id:item_unique_id,
             type:config.get_events.type
         })
-        const files_to_delete = await get_information({
-            collection_id:config.get_files.collection_id,
-            doc_id:event_unique_id,
-            type:config.get_files.type
-        })
+        try {
+            var files_to_delete = await get_information({
+                collection_id:config.get_files.collection_id,
+                doc_id:event_unique_id,
+                type:config.get_files.type
+            })
+        } catch (error) {
+        }
+        console.log(files_to_delete)
         const find_to_delete = events.find(e=>e.stringValue === event_unique_id)
         if(find_to_delete === undefined)
             return res.json({message:'Takie wydarzenie nie istnieje.'})
@@ -45,14 +49,17 @@ remove_event.post('/deleteEvent',async(req,res)=>{
                remove_item_from_db(config.prefix,event_unique_id)
             } catch (error) {
             }
-            let files_to_remove = new Array
-            for(const t in files_to_delete){
-                files_to_remove.push({path:files_to_delete[t].mapValue.fields.path.stringValue})
+            if(files_to_delete !=0){
+                let files_to_remove = new Array
+                for(const t in files_to_delete){
+                    files_to_remove.push({path:files_to_delete[t].mapValue.fields.path.stringValue})
+                }
+                try {
+                    remove_not_added_files(files_to_remove)
+                } catch (error) {
+                }
             }
-            try {
-                remove_not_added_files(files_to_remove)
-            } catch (error) {
-            }
+           
             return res.json({message:'Wydarzenie zostało usunięte.'})
         } catch (error) {
             console.log(error)

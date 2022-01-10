@@ -190,7 +190,6 @@ add_new_item.post('/addItem',async(req,res)=>{
                     phone_number_seller:item_to_add.phone_number_seller,
                     comment:item_to_add.comment,
                     public_id_item:item_to_add.public_id_item,
-                    number_of_files:_files_to_add.length
 
                 }
                 return res.json({message:'Przedmiot został utworzony',item:to_response_item,tokens:tokens})

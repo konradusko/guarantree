@@ -3,6 +3,10 @@ const remove_user_config = (req,res,next)=>{
     res.locals.remove_user_config = {
         body_keys_allow_to_pass:[],
         body_keys_require_to_validate:['token'],
+        get_user_avatar:{
+            collection_id:'Users',
+            type:'user_avatar'
+        },
         get_user_items:{
             collection_id:'Users',
             type:'user_items'
@@ -13,7 +17,7 @@ const remove_user_config = (req,res,next)=>{
         },
         prefix_remove_items:'Items',
         prefix_remove_events:'Events',
-        prefix_remove_user:'Users'
+        prefix_remove_user:'Users',
     }
     next()
 }
