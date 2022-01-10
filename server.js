@@ -12,8 +12,9 @@ firebase.initializeApp({
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
-
+app.set('view engine','ejs');
 app.use(express.static("public"));
+//middleware to get requestow sprawdzajacy token
 
 //global middleware
 import { middleware_find_html } from './middlewares/check_html_tags.js'
@@ -21,10 +22,29 @@ import { middleware_type_of_data } from './middlewares/check_type_string.js'
 import { check_token_middleware } from './middlewares/check_token.js'
 import {check_duplicate_exists} from './middlewares/check_duplicate_exists.js'
 
+//get reqests
+
+/**HOME AFTER AUTH
+ * 
+ */
+import {post_routers_config} from './configs/post_routers/after_auth/after_auth_home_config.js'
+import {home_after_login} from './get_requests/home_after_login.js'
+app.get('/home',home_after_login)
+app.post('/home',
+        middleware_type_of_data,
+        middleware_find_html,
+        check_duplicate_exists,
+        post_routers_config,
+        home_after_login
+)
+
+
+
 //post register
 import {create_account} from './post_requests/user/create_account.js'
 import {create_account_config} from './configs/user/create_account_config.js'
 import {user_avatar_info} from './configs/user/avatar_info.js'
+
 /*
 @createAccount
 -sprawdzam czy wszystko jest typem string

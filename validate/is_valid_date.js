@@ -3,13 +3,12 @@ const isValidDate = (dateString)=>{
     // Date format: YYYY-MM-DD
     const datePattern = /^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
-    // Check if the date string format is a match
    const matchArray = dateString.match(datePattern);
     if (matchArray == null) {
         return false;
     }
 
-    // Remove any non digit characters
+    // usuniecie wszystkie co nie jest cyfra
     const cleanDateString = dateString.replace(/\D/g, ''); 
 
     // Parse integer values from date string
@@ -17,7 +16,7 @@ const isValidDate = (dateString)=>{
     const month = parseInt(cleanDateString.substr(4, 2));
     const day = parseInt(cleanDateString.substr(6, 2));
    
-    // Define number of days per month
+    // zdefinowane dni po miesiacach
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
     // Adjust for leap y ears

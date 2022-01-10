@@ -88,7 +88,6 @@ remove_user.post('/deleteAccount', async(req,res)=>{
         })
 
     } catch (error) {
-        console.log(error)
         return res.json({message:'Nie udało się usunąć konta.'})
     }
 })
