@@ -9,6 +9,7 @@ const get_information = (data)=>{
             type
         } = data
         const firebase_data = await firestore().collection(collection_id).doc(doc_id).get()
+        console.log(firebase_data)
         if(firebase_data.exists){
             switch (type) {
                 case 'user_avatar':
@@ -37,6 +38,14 @@ const get_information = (data)=>{
                     break;
                     case 'events_length':
                         res(firebase_data._fieldsProto.events.arrayValue.values)
+                    break;
+                    case 'get_items_and_avatar':
+                        res({avatar:{
+                            avatar_id:firebase_data._fieldsProto.avatar.mapValue.fields.id.stringValue,
+                            avatar_path:firebase_data._fieldsProto.avatar.mapValue.fields.path.stringValue,
+                            avatar_type:firebase_data._fieldsProto.avatar.mapValue.fields.type.stringValue,
+                            avatar_public:firebase_data._fieldsProto.avatar.mapValue.fields.public.booleanValue
+                        },items:firebase_data._fieldsProto.items.arrayValue.values})
                     break;
                 default:
                     rej()

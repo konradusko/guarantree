@@ -3,7 +3,7 @@ import {validate_warranty_end_date} from '../../validate/validate_warranty_end_d
 import {validate_warranty_start_date} from '../../validate/validate_warranty_start_date.js'
 const add_item_config = (req,res,next)=>{
     res.locals.add_item_config = {
-        body_keys_allow_to_pass:['avatar','files','serial_number','seller_name','seller_adress','seller_email','phone_number_seller','phone_number_seller','item_name','brand','model','purchase_amount','warranty_start_date','warranty_end_date'],
+        body_keys_allow_to_pass:['avatar','files','serial_number','seller_name','seller_adress','seller_email','phone_number_seller','phone_number_seller','item_name','brand','model','purchase_amount','warranty_start_date','warranty_end_date','comment'],
         body_keys_require_to_validate:['token'],
         add_photo_prefix:'Items',
         get_slots:{

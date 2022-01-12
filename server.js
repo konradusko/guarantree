@@ -21,7 +21,7 @@ import { middleware_find_html } from './middlewares/check_html_tags.js'
 import { middleware_type_of_data } from './middlewares/check_type_string.js'
 import { check_token_middleware } from './middlewares/check_token.js'
 import {check_duplicate_exists} from './middlewares/check_duplicate_exists.js'
-
+import {get_only_using_token_config} from './configs/getters/get_only_using_token_config.js'
 //get reqests
 
 /**HOME AFTER AUTH
@@ -34,10 +34,22 @@ app.post('/home',
         middleware_type_of_data,
         middleware_find_html,
         check_duplicate_exists,
+        check_token_middleware,
         post_routers_config,
         home_after_login
 )
-
+//po wejsciu na strone główną
+import {get_item_config} from './configs/getters/home_after_login_config.js'
+import {get_items_home_page} from './post_requests/home_after_login/get_all_items.js'
+app.post('/gethome',
+        middleware_type_of_data,
+        middleware_find_html,
+        check_duplicate_exists,
+        check_token_middleware,
+        get_only_using_token_config,
+        get_item_config,
+        get_items_home_page
+)
 
 
 //post register

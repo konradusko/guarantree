@@ -1,24 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
-</head>
-<body>
-    <div id="content">
+<html lang="pl">
+<!--!-------------------------------------------------------------------------------------!-->
+<!--?----------------------------------      HEAD      ----------------------------------?-->
+<!--!------------------------------------------------------------------------------------!-->
 
-    </div>
-    <script src="hearth.js"></script>
-    <script>   
-    const urlPath = '<%=template%>'
-    engine(urlPath)
-    </script>
+<head>
+    <!-- Default settings-->
+    <meta charset="UTF-8">
+    <title>Gwarancje</title>
+    <meta name="description" content="OPIS">
+    <meta name="viewport" content="width=device-width,  initial-scale=1.0, minimum-scale=1, maximum-scale=1" ,
+        user-scalable=no">
+    <meta name="theme-color" content="#9C27B0">
+    <!--TODO: OG:Media -->
+    <meta property="og:url" content="https://link.app/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Nazwa" />
+    <meta property="og:description" content="Opis dla postów na fb/twitter" />
+    <meta property="og:image" content="https://link_do_obrazka_dla_socjal_mediów.app/img/other/ogMedia.png" />
+    <!--TODO: Favicon -->
+    <link rel="icon" href="img/other/favicon.ico"><!-- 32×32 -->
+    <link rel="icon" href="img/other/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="img/pwa/icon-180x180.png"><!-- 180×180 -->
+    <!--TODO: PWA -->
+    <meta name="theme-color" content="#fff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!--?  <link rel="manifest" href="manifest.json"> -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style/style.css">
+    <!-- JS -->
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-app.js" ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.2/firebase-analytics.js" ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js" ></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-firestore.js" ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js" ></script>
+    <script src="hearth.js" ></script>
+    <script >
+        const urlPath = '<%=template%>'
+        engine(urlPath)
+        </script>
+</head>
+
+<body>
+    <main class="GW" id="content">
+ 
+    </main>
+
+   
 </body>
 </html>
