@@ -1,6 +1,5 @@
 import {check_token} from '../modules/token/check_token.js'
 const check_token_middleware = async(req,res,next)=>{
-    
     if(!('token' in req.body))
     return res.json({message:'Token jest wymagany'})
 

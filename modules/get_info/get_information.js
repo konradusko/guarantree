@@ -9,7 +9,6 @@ const get_information = (data)=>{
             type
         } = data
         const firebase_data = await firestore().collection(collection_id).doc(doc_id).get()
-        console.log(firebase_data)
         if(firebase_data.exists){
             switch (type) {
                 case 'user_avatar':
@@ -46,6 +45,20 @@ const get_information = (data)=>{
                             avatar_type:firebase_data._fieldsProto.avatar.mapValue.fields.type.stringValue,
                             avatar_public:firebase_data._fieldsProto.avatar.mapValue.fields.public.booleanValue
                         },items:firebase_data._fieldsProto.items.arrayValue.values})
+                    break;
+                    case 'item_home_front':
+                        res({avatar:{
+                            avatar_id:firebase_data._fieldsProto.avatar.mapValue.fields.id.stringValue,
+                            avatar_path:firebase_data._fieldsProto.avatar.mapValue.fields.path.stringValue,
+                            avatar_type:firebase_data._fieldsProto.avatar.mapValue.fields.type.stringValue,
+                            avatar_public:firebase_data._fieldsProto.avatar.mapValue.fields.public.booleanValue
+                            },
+                            warranty_end_date:{
+                                value:firebase_data._fieldsProto.warranty_end_date.mapValue.fields.value.stringValue,
+                                type:firebase_data._fieldsProto.warranty_end_date.mapValue.fields.type.stringValue
+                            },
+                            warranty_start_date: firebase_data._fieldsProto.warranty_start_date.stringValue   
+                        })
                     break;
                 default:
                     rej()

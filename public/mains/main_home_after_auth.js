@@ -1,18 +1,10 @@
 export default async function home_main_after_auth(){
+   const create_token = await import ('../create_token.js')
+   const get_data = await import('../after_auth/home/get_data.js')
+   try {
+         await get_data.default(create_token)
+   } catch (error) {
+      
+   }
 
-   firebase.auth().currentUser.getIdToken().then((token)=>{
-      console.log(token)
-      fetch('/gethome',{
-         method:"POST",
-         headers:{
-             Accept: "application/json",
-            "Content-Type": "application/json",
-         },
-         body:JSON.stringify({token})
-     }).then(response => response.json())
-     .then((xd)=>{
-        console.log(xd)
-     })
-   })
- 
 }

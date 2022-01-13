@@ -10,9 +10,6 @@ const engine = async (urlPath)=>{
     };
    
     firebase.initializeApp(firebaseConfig);
-
-
-
     firebase.auth().onAuthStateChanged(async (user) => {
         const get_token = (token_given)=>{
             return new Promise((res,rej)=>{
@@ -46,10 +43,8 @@ const engine = async (urlPath)=>{
             if("template" in json){
                 document.getElementById('content').innerHTML=json.template
             }
-            console.log(json)
             if("javascript_href" in json){
                 //zaimportować javascript
-                console.log(json.javascript_href)
                 const module = await import(json.javascript_href)
                 module.default()
             }
