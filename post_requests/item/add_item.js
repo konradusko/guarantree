@@ -32,6 +32,17 @@ add_new_item.post('/addItem',async(req,res)=>{
         if(typeof validate === 'string')
         return res.json({message:validate})
       
+        //sprawdzam czy podana data nie jest mniejsza od daty zakonczenia
+        if(!(body.warranty_end_date.includes('/'))){
+            let warranty_end_check = body.warranty_end_date.split('-')
+            warranty_end_check = `${warranty_end_check[1]}/${warranty_end_check[2]}/${warranty_end_check[0]}`
+            let warranty_start_check = body.warranty_start_date.split('-')
+            warranty_start_check = `${warranty_start_check[1]}/${warranty_start_check[2]}/${warranty_start_check[0]}`
+            if(warranty_start_check>warranty_end_check)
+                return res.json({message:'Data rozpoczęcia nie może być większa niż data zakończenia.'})
+        }
+
+
         //sprawdzić czy użytkownik ma sloty
         try {
            slots = await get_information({

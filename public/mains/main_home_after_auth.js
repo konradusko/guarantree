@@ -4,6 +4,7 @@ export default async function home_main_after_auth(){
    const set_user_avatar = await import('../after_auth/home/set_user_avatar.js')
    const add_events_button = await import('../after_auth/home/add_events_button.js')
    const calculate_and_inner_data = await import('../after_auth/home/calculate.js')
+   const get_days_in_month = await import('../get_days_in_month.js')
    //najpierw dodać jeszcze do przycisków eventy
    const {items,user_avatar} =  await get_data.default(create_token)
    //wyswietlamy avatara uzytkownika
@@ -23,4 +24,5 @@ export default async function home_main_after_auth(){
    mutationObserver.observe(container_for_items,{ childList:true})
 
    //liczymy i dodajemy przedmioty
+   calculate_and_inner_data.default(items,get_days_in_month)
 }

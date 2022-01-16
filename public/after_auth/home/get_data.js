@@ -21,7 +21,6 @@ export default function get_data(create_token){
                     notification_error.dataset.typinfo = 'off'
                     notification_info.children[0].innerText = data.message
                     notification_info.dataset.typinfo = 'info'
-                    console.log(data)
                    res(data)
                 }).catch(()=>{rej()})
             } catch (error) {
