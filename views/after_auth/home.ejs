@@ -19,16 +19,14 @@
             <!--!-------------------------------------------------------------------------------------!-->
             <!--?------------------------------  MODUŁ:  Powiadomienia -------------------------------?-->
             <!--!------------------------------------------------------------------------------------!-->
-            <aside class="GW__TopInfo TopInfo">
-                <div class="TopInfo__error">
-                    <noscript>Obsługa skryptów JavaScript jest włączona w Twojej przeglądarce</noscript>
-                </div>
-                <div class="TopInfo__error TopInfo__error--css">
-                    <span style="color: red">Arkusz motywu nie został załadowany poprawnie</span>
-                </div>
-
-                <div class="TopInfo__info" data-typinfo="on" data-timeinfo="no">
+            <aside class="GW__TopInfo TopInfo" id="notification_main">
+                <div class="TopInfo__info" data-typinfo="off" data-timeinfo="yes" id="error_download_items">
                     <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
+                    <span style="color: white">Nie udało się pobrać danych</span>
+                </div>
+                <div class="TopInfo__info" data-typinfo="off" data-timeinfo="yes" id="get_items_info">
+                    <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
+                    <span style="color: white">Nie udało się pobrać danych</span>
                 </div>
             </aside>
 
@@ -38,15 +36,15 @@
             <div class="WarrantyList__top">
                 <header class="WarrantyList__header">
                     <h1 class="WarrantyList__logo">
-                        GWARANT
+                       Guarantree
                     </h1>
                     <div class="WarrantyList__TopMenu">
-                        <a class="WarrantyList__profil" href="?page=user">
-                            <img class="WarrantyList__avatar" src="https://picsum.photos/80/80" alt="">
+                        <a class="WarrantyList__profil">
+                            <img class="WarrantyList__avatar" src="" alt="" id="home_page_user_avatar">
                             <div class="WarrantyList__NoAvatar"></div>
                         </a>
                         <div class="WarrantyList__add">
-                            <a href="?page=product">
+                            <a>
                                 +
                             </a>
                         </div>
@@ -85,8 +83,8 @@
             </div>
 
 
-            <div class="WarrantyList__ItemsList">
-                <!-- !Element ładowania przed wczytaniem danych z firebasa
+            <div class="WarrantyList__ItemsList" id="main_items_container">
+                <!-- !Element ładowania przed wczytaniem danych z firebasa -->
                     <div class="WarrantyList__item WarrantyList__item--loading" >
                         <div class="WarrantyList__ItemFirstPart--loading">
                             <div class="WarrantyList__ItemDot--loading"></div>
@@ -103,26 +101,43 @@
                             dni
                         </div>
                     </div>
-                    -->
+                     <!-- !Element ładowania przed wczytaniem danych z firebasa -->
+                     <div class="WarrantyList__item WarrantyList__item--loading" >
+                        <div class="WarrantyList__ItemFirstPart--loading">
+                            <div class="WarrantyList__ItemDot--loading"></div>
+                        </div>
+                        <div class="WarrantyList__ItemSecondPart">
+                            <h2 class="WarrantyList__ItemName--loading">
+                                Lorem
+                            </h2>
+                            <p class="WarrantyList__ItemDescription--loading">
+                                Okres gwarancyjny
+                            </p>
+                        </div>
+                        <div class="WarrantyList__ItemThirdPart--loading"> 
+                            dni
+                        </div>
+                    </div>
+                     <!-- !Element ładowania przed wczytaniem danych z firebasa -->
+                      <div class="WarrantyList__item WarrantyList__item--loading" >
+                        <div class="WarrantyList__ItemFirstPart--loading">
+                            <div class="WarrantyList__ItemDot--loading"></div>
+                        </div>
+                        <div class="WarrantyList__ItemSecondPart">
+                            <h2 class="WarrantyList__ItemName--loading">
+                                Lorem
+                            </h2>
+                            <p class="WarrantyList__ItemDescription--loading">
+                                Okres gwarancyjny
+                            </p>
+                        </div>
+                        <div class="WarrantyList__ItemThirdPart--loading"> 
+                            dni
+                        </div>
+                    </div>
+                <!--  
 
-                <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="young" data-TypeItem="warranty">
-                    <div class="WarrantyList__ItemFirstPart">
-                        <img class="WarrantyList__ItemImg" src="https://picsum..photos/65/65" alt="">
-                        <div class="WarrantyList__ItemNoImg"></div>
-                        <div class="WarrantyList__ItemDot"></div>
-                    </div>
-                    <div class="WarrantyList__ItemSecondPart">
-                        <h2 class="WarrantyList__ItemName">
-                            Nowa
-                        </h2>
-                        <p class="WarrantyList__ItemDescription">
-                            Okres gwarancyjny: xx.xx.xx - xx.xx.xx
-                        </p>
-                    </div>
-                    <div class="WarrantyList__ItemThirdPart">
-                        21 dni
-                    </div>
-                </div>
+              
 
                 <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="young" data-TypeItem="warranty">
                     <div class="WarrantyList__ItemFirstPart">
@@ -217,7 +232,7 @@
                     <div class="WarrantyList__ItemThirdPart">
                         5 dni
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </section>

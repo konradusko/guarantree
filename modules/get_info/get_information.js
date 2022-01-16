@@ -57,7 +57,8 @@ const get_information = (data)=>{
                                 value:firebase_data._fieldsProto.warranty_end_date.mapValue.fields.value.stringValue,
                                 type:firebase_data._fieldsProto.warranty_end_date.mapValue.fields.type.stringValue
                             },
-                            warranty_start_date: firebase_data._fieldsProto.warranty_start_date.stringValue   
+                            warranty_start_date: firebase_data._fieldsProto.warranty_start_date.stringValue,
+                            public_id_item:firebase_data._fieldsProto.public_id_item.stringValue
                         })
                     break;
                 default:
