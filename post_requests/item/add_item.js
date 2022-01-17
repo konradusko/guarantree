@@ -38,8 +38,10 @@ add_new_item.post('/addItem',async(req,res)=>{
             warranty_end_check = `${warranty_end_check[1]}/${warranty_end_check[2]}/${warranty_end_check[0]}`
             let warranty_start_check = body.warranty_start_date.split('-')
             warranty_start_check = `${warranty_start_check[1]}/${warranty_start_check[2]}/${warranty_start_check[0]}`
-            if(warranty_start_check>warranty_end_check)
+            if(new Date(warranty_start_check).getTime()>new Date(warranty_end_check).getTime())
                 return res.json({message:'Data rozpoczęcia nie może być większa niż data zakończenia.'})
+            if(new Date(warranty_start_check).getTime()==new Date(warranty_end_check).getTime())
+                return res.json({message:'Daty nie mogą być takie same.'})
         }
 
 

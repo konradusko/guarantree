@@ -1,10 +1,9 @@
 //tutaj będziemy liczyć ile dni co i jak
-export default function calculate_data(items,get_days_in_month){
+export default function calculate_data(items,get_days_in_month,callback){
     //przyjmuje tablice za parameter
     // YYYY-MM-DD
-    console.log(items)
+    console.log(items.length)
     const _container_for_items = document.querySelector('#main_items_container')
-    _container_for_items.innerHTML = ''
     const _warranty_start_date = new Date(`${new Date().getMonth()+1}/${new Date().getDate()}/${new Date().getFullYear()}`)
     let _warranty_end_date,
     end_date_year,
@@ -14,8 +13,12 @@ export default function calculate_data(items,get_days_in_month){
      _warranty_end_date_from_database,
      tmp_div,
      _days_for_status,
-     time_for_status
-
+     time_for_status,
+    days,
+    time,
+    _warranty_hold_start_date,
+    is_archive,
+   status
     for(const x in items){
         _warranty_start_from_database = items[x].warranty_start_date.split('-')
         _warranty_end_date_from_database = items[x].warranty_end_date.value.split('-')
@@ -58,18 +61,49 @@ export default function calculate_data(items,get_days_in_month){
             //month/day/year
             _warranty_end_date = new Date(`${end_date_months}/${end_date_day}/${end_date_year}`)
         }
-        console.log("end")
-        console.log(_warranty_end_date)
-       const time = Math.abs(_warranty_start_date -_warranty_end_date )
-       const days = Math.sign(time) === 0 || Math.sign(time) === -1 ? 0  : Math.ceil(time / (1000 * 60 * 60 * 24));
-       console.log(days)
-        time_for_status = _warranty_end_date - new Date(`${_warranty_start_from_database[1]}/${_warranty_start_from_database[2]}/${_warranty_start_from_database[0]}`)
-        _days_for_status = Math.sign(time_for_status ) === 0 || Math.sign(time_for_status ) === -1 ? 0  : Math.ceil(time_for_status  / (1000 * 60 * 60 * 24));
+        
+        time = Math.abs(_warranty_start_date -_warranty_end_date )
+        days =Math.ceil(time / (1000 * 60 * 60 * 24));
+        _warranty_hold_start_date = new Date(`${_warranty_start_from_database[1]}/${_warranty_start_from_database[2]}/${_warranty_start_from_database[0]}`)
+        is_archive = _warranty_start_date.getTime()>_warranty_end_date.getTime()
+
+        time_for_status = _warranty_end_date - _warranty_hold_start_date
+        _days_for_status =  Math.ceil(time_for_status  / (1000 * 60 * 60 * 24));
+       if(is_archive)
+        days = 0
+        if (days === 0 )
+            status = 'archive'
+        if(days !=0){
+            //trzeba obliczyć teraz kolor
+            if(days < ((25/100)*_days_for_status).toFixed(0))
+            status = 'old'
+
+            if(days >= ((25/100)*_days_for_status).toFixed(0))
+            status = 'medium'
+
+            if(days >= ((50/100)*_days_for_status).toFixed(0))
+            status = 'young'
+
+            if(days >= ((75/100)*_days_for_status).toFixed(0))
+            status = 'new'
+
+        }
+        if(days ===0 && !is_archive)
+        days="Dziś"
+        if(days ===1 && !is_archive)
+        days +=' Dzień'
+        if(days>1 && !is_archive)
+        days+=' Dni'
+
        tmp_div = document.createElement('div')
+       tmp_div.className = `WarrantyList__item`
+       tmp_div.dataset.IdItem = items[x].public_id_item
+       tmp_div.dataset.StatusItem = status
+       tmp_div.dataset.TypeItem = `warranty`
        tmp_div.innerHTML= `
-       <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="young" data-TypeItem="warranty">
+ 
        <div class="WarrantyList__ItemFirstPart">
-           <img class="WarrantyList__ItemImg" src="https://picsum..photos/65/65" alt="">
+           <img class="WarrantyList__ItemImg" src="${items[x].avatar.avatar_path}" alt="Avatar" data-AvatarId=${items[x].avatar.avatar_id} data-AvatarPublic=${items[x].avatar.avatar_public} data-AvatarType=${items[x].avatar.avatar_type}>
            <div class="WarrantyList__ItemNoImg"></div>
            <div class="WarrantyList__ItemDot"></div>
        </div>
@@ -82,10 +116,13 @@ export default function calculate_data(items,get_days_in_month){
            </p>
        </div>
        <div class="WarrantyList__ItemThirdPart">
-           ${days ==1? days+' Dzień': days+' Dni'}
+           ${days === 0? 'Zakończona':days}
        </div>
-   </div>`
+ `
    _container_for_items.appendChild(tmp_div)
+
+    callback(tmp_div)
     }
+
 } 
 
