@@ -18,7 +18,8 @@ export default function calculate_data(items,get_days_in_month,callback){
     time,
     _warranty_hold_start_date,
     is_archive,
-   status
+   status,
+   object_to_return
     for(const x in items){
         _warranty_start_from_database = items[x].warranty_start_date.split('-')
         _warranty_end_date_from_database = items[x].warranty_end_date.value.split('-')
@@ -99,6 +100,10 @@ export default function calculate_data(items,get_days_in_month,callback){
        tmp_div.className = `WarrantyList__item`
        tmp_div.dataset.IdItem = items[x].public_id_item
        tmp_div.dataset.StatusItem = status
+       object_to_return= new Object
+       object_to_return.id = items[x].public_id_item
+       object_to_return.status = status
+       object_to_return.name = items[x].item_name
        tmp_div.dataset.TypeItem = `warranty`
        tmp_div.innerHTML= `
  
@@ -121,7 +126,7 @@ export default function calculate_data(items,get_days_in_month,callback){
  `
    _container_for_items.appendChild(tmp_div)
 
-    callback(tmp_div)
+    callback(tmp_div,object_to_return)
     }
 
 } 

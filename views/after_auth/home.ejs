@@ -7,6 +7,80 @@
             <a class="nav__link nav__link--user" href="?page=user"> </a>
         </nav> 
  
+
+
+
+        <!--!-------------------------------------------------------------------------------------!-->
+        <!--?-------------------------------  MODUŁ:  Dialog Box  -------------------------------?-->
+        <!--!------------------------------------------------------------------------------------!-->
+        <dialog class="BoxDialog" data-dialogName="additem" data-dialogHeight="50">
+            <div class="BoxDialog__empty"></div>
+
+            <div class="BoxDialog__BoxFull">
+                <div class="BoxDialog__BoxMenu">
+                    <div class="BoxDialog__MenuPart"></div>
+                    <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
+                    <div class="BoxDialog__MenuPart"> 
+                        <div class="BoxDialog__MenuClose"></div>
+                    </div>
+                </div>
+                <div class="BoxDialog__BoxContent">
+                    xx
+
+                    <div class="BoxDial BoxDial--name">
+                        <div class="BoxDial__ListButton">
+                            <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
+                            <button type="button" class="BoxDial__Button BoxDial__Button--accept">Sortuj</button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </dialog>
+
+
+        <!--?       Strona główna ->  Filtry       -->
+        <dialog class="BoxDialog" data-dialogName="filters" data-dialogHeight="30">
+            <div class="BoxDialog__empty"></div>
+            <div class="BoxDialog__BoxFull">
+                <div class="BoxDialog__BoxMenu">
+                    <div class="BoxDialog__MenuPart"></div>
+                    <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
+                    <div class="BoxDialog__MenuPart"> 
+                        <div class="BoxDialog__MenuClose"></div>
+                    </div>
+                </div>
+                
+                <div class="BoxDialog__BoxContent">
+                    <div class="BoxDial BoxDial--filtrs">
+                        <h4 class="BoxDial__title">
+                            Filtry:
+                        </h4>
+                        <div class="BoxDial__Option BoxDial__Option--filterAZ">
+                            A - Z
+                        </div>
+                        <div class="BoxDial__Option BoxDial__Option--filterZA">
+                            Z - A
+                        </div>
+
+                        <div class="BoxDial__Option BoxDial__Option--filterStart">
+                            Data rozpoczęcia
+                        </div>
+
+                        <div class="BoxDial__Option BoxDial__Option--filterClose">
+                            Data zakończenia
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </dialog>
+
+
+
+
  <!--!-------------------------------------------------------------------------------------!-->
         <!--?---------------------------------- WIDOK:  Główny ----------------------------------?-->
         <!--!------------------------------------------------------------------------------------!-->
@@ -28,6 +102,7 @@
                     <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
                     <span style="color: white">Nie udało się pobrać danych</span>
                 </div>
+
             </aside>
 
 
@@ -73,9 +148,9 @@
 
                 <div class="WarrantyList__FiltrBox">
                     <label class="WarrantyList__FiltrBoxLabel">
-                        <input class="WarrantyList__FiltrBoxInput" type="text" placeholder="Szukaj">
+                        <input class="WarrantyList__FiltrBoxInput" type="text" placeholder="Szukaj" id="search_input">
                     </label>
-                    <a href="javascript:location.search+='&box=filters';" class="WarrantyList__FiltrBoxFilters">
+                    <a  class="WarrantyList__FiltrBoxFilters" id="filters_element">
                         Filtry
                     </a>
                 </div>
@@ -135,104 +210,7 @@
                             dni
                         </div>
                     </div>
-                <!--  
-
-              
-
-                <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="young" data-TypeItem="warranty">
-                    <div class="WarrantyList__ItemFirstPart">
-                        <img class="WarrantyList__ItemImg" src="https://picsum..photos/65/65" alt="">
-                        <div class="WarrantyList__ItemNoImg"></div>
-                        <div class="WarrantyList__ItemDot"></div>
-                    </div>
-                    <div class="WarrantyList__ItemSecondPart">
-                        <h2 class="WarrantyList__ItemName">
-                            Nowa
-                        </h2>
-                        <p class="WarrantyList__ItemDescription">
-                            Okres gwarancyjny: xx.xx.xx - xx.xx.xx
-                        </p>
-                    </div>
-                    <div class="WarrantyList__ItemThirdPart">
-                        21 dni
-                    </div>
-                </div>
-
-                <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="young" data-TypeItem="warranty">
-                    <div class="WarrantyList__ItemFirstPart">
-                        <img class="WarrantyList__ItemImg" src="https://picsum..photos/65/65" alt="">
-                        <div class="WarrantyList__ItemNoImg"></div>
-                        <div class="WarrantyList__ItemDot"></div>
-                    </div>
-                    <div class="WarrantyList__ItemSecondPart">
-                        <h2 class="WarrantyList__ItemName">
-                            Nowa
-                        </h2>
-                        <p class="WarrantyList__ItemDescription">
-                            Okres gwarancyjny: xx.xx.xx - xx.xx.xx
-                        </p>
-                    </div>
-                    <div class="WarrantyList__ItemThirdPart">
-                        21 dni
-                    </div>
-                </div>
-
-                <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="young" data-TypeItem="warranty">
-                    <div class="WarrantyList__ItemFirstPart">
-                        <img class="WarrantyList__ItemImg" src="https://picsum..photos/65/65" alt="">
-                        <div class="WarrantyList__ItemNoImg"></div>
-                        <div class="WarrantyList__ItemDot"></div>
-                    </div>
-                    <div class="WarrantyList__ItemSecondPart">
-                        <h2 class="WarrantyList__ItemName">
-                            Nowa
-                        </h2>
-                        <p class="WarrantyList__ItemDescription">
-                            Okres gwarancyjny: xx.xx.xx - xx.xx.xx
-                        </p>
-                    </div>
-                    <div class="WarrantyList__ItemThirdPart">
-                        21 dni
-                    </div>
-                </div>
-
-                <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="medium" data-TypeItem="family">
-                    <div class="WarrantyList__ItemFirstPart">
-                        <img class="WarrantyList__ItemImg" src="https://picsum.photos/64/65">
-                        <div class="WarrantyList__ItemNoImg"></div>
-                        <div class="WarrantyList__ItemDot"></div>
-                    </div>
-                    <div class="WarrantyList__ItemSecondPart">
-                        <h2 class="WarrantyList__ItemName">
-                            Średnie
-                        </h2>
-                        <p class="WarrantyList__ItemDescription">
-                            Okres gwarancyjny: xx.xx.xx - xx.xx.xx
-                        </p>
-                    </div>
-                    <div class="WarrantyList__ItemThirdPart">
-                        234 dni
-                    </div>
-                </div>
-
-                <div class="WarrantyList__item" data-IdItem="x" data-StatusItem="old" data-TypeItem="family">
-                    <div class="WarrantyList__ItemFirstPart">
-                        <img class="WarrantyList__ItemImg" src="https://picsum.photos/65/64">
-                        <div class="WarrantyList__ItemNoImg"></div>
-                        <div class="WarrantyList__ItemDot"></div>
-                    </div>
-                    <div class="WarrantyList__ItemSecondPart">
-                        <h2 class="WarrantyList__ItemName">
-                            Stare
-                        </h2>
-                        <p class="WarrantyList__ItemDescription">
-                            Okres gwarancyjny: xx.xx.xx - xx.xx.xx
-                        </p>
-                    </div>
-                    <div class="WarrantyList__ItemThirdPart">
-                        5 dni
-                    </div>
-                </div> -->
+            
 
             </div>
         </section>
