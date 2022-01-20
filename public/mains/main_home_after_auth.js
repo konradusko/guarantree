@@ -8,7 +8,21 @@ export default async function home_main_after_auth(){
    const boxes = await import('../boxes.js')
    //tablica z wszystkimi przedmiotami
    let items_ = new Array
-   //dodaje przyciski do 
+   //dodaje przyciski do profilu dodania przedmiotu sklepu
+   const user_profile_button =  [... document.querySelectorAll('.route_to_profile')]
+   user_profile_button.forEach((profile)=>{
+      profile.addEventListener('click',()=>{
+         window.location.href='/profile'
+      })
+   })
+   //dodanie przedmiotu
+   document.querySelector('#add_new_item_button').addEventListener('click',()=>{
+      window.location.href='/AddNewItem'
+   })
+   //sklep
+   document.querySelector('#shop_button').addEventListener('click',()=>{
+      window.location.href='/Shop'
+   })
    const {items,user_avatar} =  await get_data.default(create_token)
 
    
@@ -55,7 +69,6 @@ export default async function home_main_after_auth(){
    scroll_config.default('.WarrantyList__ItemsList')
    //liczymy i dodajemy przedmioty
    calculate_and_inner_data.default(items,get_days_in_month,(item,object_for_array)=>{
-      console.log(object_for_array)
       items_.push(object_for_array)
       item.addEventListener('click',(e)=>{
             let count =0;
@@ -63,7 +76,8 @@ export default async function home_main_after_auth(){
             while(element.dataset.IdItem === undefined||count === 200){
                   element = element.parentNode
                   count++
-            }        
+            }   
+            window.location.href=`/item?itemId=${element.dataset.IdItem}`  
       })
    })
    const sort_inner_element = (check_end)=>{
