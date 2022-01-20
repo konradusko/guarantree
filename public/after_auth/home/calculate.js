@@ -89,6 +89,8 @@ export default function calculate_data(items,get_days_in_month,callback){
             status = 'new'
 
         }
+        object_to_return= new Object
+        object_to_return.days = days
         if(days ===0 && !is_archive)
         days="Dziś"
         if(days ===1 && !is_archive)
@@ -100,10 +102,12 @@ export default function calculate_data(items,get_days_in_month,callback){
        tmp_div.className = `WarrantyList__item`
        tmp_div.dataset.IdItem = items[x].public_id_item
        tmp_div.dataset.StatusItem = status
-       object_to_return= new Object
+
        object_to_return.id = items[x].public_id_item
        object_to_return.status = status
        object_to_return.name = items[x].item_name
+       object_to_return.start_date = _warranty_hold_start_date
+       object_to_return.end_date = _warranty_end_date
        tmp_div.dataset.TypeItem = `warranty`
        tmp_div.innerHTML= `
  

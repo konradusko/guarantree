@@ -860,6 +860,8 @@ input[type="date"]::before {
 }
 
 .WarrantyList__ItemsList {
+  display:flex;
+  flex-direction: column;
   overflow-y: scroll;
   -ms-scroll-snap-type: y mandatory;
       scroll-snap-type: y mandatory;

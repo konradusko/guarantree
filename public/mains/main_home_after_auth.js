@@ -2,7 +2,6 @@ export default async function home_main_after_auth(){
    const create_token = await import ('../create_token.js')
    const get_data = await import('../after_auth/home/get_data.js')
    const set_user_avatar = await import('../after_auth/home/set_user_avatar.js')
-   const add_events_button = await import('../after_auth/home/add_events_button.js')
    const calculate_and_inner_data = await import('../after_auth/home/calculate.js')
    const get_days_in_month = await import('../get_days_in_month.js')
    const scroll_config = await import('../scroll_config.js')
@@ -10,10 +9,9 @@ export default async function home_main_after_auth(){
    //tablica z wszystkimi przedmiotami
    let items_ = new Array
    //dodaje przyciski do 
-   //profilu
-   //dodania nowego przedmiotu
-   //malutkiego menu na dole   
-   add_events_button.default(boxes.default)
+   const {items,user_avatar} =  await get_data.default(create_token)
+
+   
    //search button logic
    const container_for_items =  document.querySelector('#main_items_container')
    const search_button = document.querySelector('#search_input')
@@ -32,7 +30,6 @@ export default async function home_main_after_auth(){
             check=true
            document.querySelector(`[data--id-item="${items_[x].id}"]`).style.display = 'flex'
          }else{
-            console.log('e')
             document.querySelector(`[data--id-item="${items_[x].id}"]`).style.display = 'none'
          }
 
@@ -43,7 +40,13 @@ export default async function home_main_after_auth(){
       element_not_found.remove()
    })
 
-   const {items,user_avatar} =  await get_data.default(create_token)
+
+   //ustawiam przycisk na filtry
+   document.querySelector('#filters_element').addEventListener('click',()=>{
+      boxes.default('filters')
+  })
+
+
    //wyswietlamy avatara uzytkownika
    set_user_avatar.default(user_avatar)
 
@@ -52,6 +55,7 @@ export default async function home_main_after_auth(){
    scroll_config.default('.WarrantyList__ItemsList')
    //liczymy i dodajemy przedmioty
    calculate_and_inner_data.default(items,get_days_in_month,(item,object_for_array)=>{
+      console.log(object_for_array)
       items_.push(object_for_array)
       item.addEventListener('click',(e)=>{
             let count =0;
@@ -62,7 +66,38 @@ export default async function home_main_after_auth(){
             }        
       })
    })
-
-  
-
+   const sort_inner_element = (check_end)=>{
+      let i =0,arr_for_end = new Array
+      for( i in items_){
+         if(check_end && items_[i].days ===0)
+            arr_for_end.push(items_[i])
+         if(!check_end || check_end && items_[i].days !=0)
+         document.querySelector(`[data--id-item="${items_[i].id}"]`).style.order = Number(i)+1
+      }
+      i++
+      for(const e in arr_for_end){
+         document.querySelector(`[data--id-item="${arr_for_end[e].id}"]`).style.order = Number(i)+1
+      }
+      document.querySelector(`.BoxDialog[data-dialogName="filters"]`).close();
+   }
+      document.querySelector('#sort_from_A_Z').addEventListener('click',()=>{
+         items_.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()))
+         sort_inner_element(false)
+      })
+   document.querySelector('#sort_from_Z_A').addEventListener('click',()=>{
+         items_.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()))
+         sort_inner_element(false)
+   })
+   document.querySelector('#sort_from_date_start').addEventListener('click',()=>{
+         items_.sort((a, b) => a.start_date.getTime()-b.start_date.getTime())
+         sort_inner_element(false)
+   })
+   document.querySelector('#sort_from_date_end').addEventListener('click',()=>{
+         items_.sort((a, b) => b.end_date.getTime()-a.end_date.getTime())
+         sort_inner_element(false)
+   })
+   document.querySelector('#sort_from_days_high').addEventListener('click',()=>{
+         items_.sort((a, b) => a.days-b.days)
+         sort_inner_element(true)
+   })
 }
