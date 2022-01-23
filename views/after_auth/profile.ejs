@@ -9,6 +9,150 @@
 
 
 
+   <!--?       Profil -> Zmiana e-mail       -->
+   <dialog class="BoxDialog" data-dialogName="chEmail" data-dialogHeight="35">
+    <div class="BoxDialog__empty"></div>
+    <div class="BoxDialog__BoxFull">
+        <div class="BoxDialog__BoxMenu">
+            <div class="BoxDialog__MenuPart"></div>
+            <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
+            <div class="BoxDialog__MenuPart"> 
+                <div class="BoxDialog__MenuClose"></div>
+            </div>
+        </div>
+
+        <div class="BoxDialog__BoxContent">
+            <div class="BoxDial BoxDial--chEmail">
+                <h4 class="BoxDial__title">
+                    Zmień e-mail:
+                </h4>
+                <input type="email" class="BoxDial__input BoxDial__input--chEmail1" placeholder="&#xf0e0;  Obecny adres e-mail" required>
+                <input type="email" class="BoxDial__input BoxDial__input--chEmail2" placeholder="&#xe809;  Nowy adres e-mail" required>
+
+                <div class="BoxDial__ListButton">
+                    <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</dialog>
+
+
+<!--?       Profil -> Zmiana Hasła       -->
+<dialog class="BoxDialog" data-dialogName="chPass" data-dialogHeight="40">
+    <div class="BoxDialog__empty"></div>
+    <div class="BoxDialog__BoxFull">
+        <div class="BoxDialog__BoxMenu">
+            <div class="BoxDialog__MenuPart"></div>
+            <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
+            <div class="BoxDialog__MenuPart"> 
+                <div class="BoxDialog__MenuClose"></div>
+            </div>
+        </div>
+
+        <div class="BoxDialog__BoxContent">
+            <div class="BoxDial BoxDial--chEmail">
+                <h4 class="BoxDial__title">
+                    Zmień hasło:
+                </h4>
+                <input type="password" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xf13e;  Obecne hasło" required>
+                <input type="password" class="BoxDial__input BoxDial__input--chPass2" placeholder="&#xe82e;  Nowe hasło" required>
+                <input type="password" class="BoxDial__input BoxDial__input--chPass3" placeholder="&#xe82e;  Powtórz nowe hasło" required>
+
+                <div class="BoxDial__ListButton">
+                    <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</dialog>
+
+
+<!--?       Profil -> Zmiana nazwy       -->
+<dialog class="BoxDialog" data-dialogName="chName" data-dialogHeight="32">
+    <div class="BoxDialog__empty"></div>
+    <div class="BoxDialog__BoxFull">
+        <div class="BoxDialog__BoxMenu">
+            <div class="BoxDialog__MenuPart"></div>
+            <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
+            <div class="BoxDialog__MenuPart"> 
+                <div class="BoxDialog__MenuClose"></div>
+            </div>
+        </div>
+
+        <div class="BoxDialog__BoxContent">
+            <div class="BoxDial BoxDial--chEmail">
+                <h4 class="BoxDial__title">
+                    Zmień nazwę:
+                </h4>
+                <input type="text" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xe815;  Nowa nazwa" required id="input_N_name_1">
+                <input type="text" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xe815;  Powtórz nową nazwa" required id="input_N_name_2" >
+
+                <div class="BoxDial__ListButton">
+                    <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept" id="button_change_name">Zastosuj</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</dialog>
+
+
+<!--?       Profil -> Zmiana avatara       -->
+<dialog class="BoxDialog" data-dialogName="chAvatar" data-dialogHeight="32">
+    <div class="BoxDialog__empty"></div>
+    <div class="BoxDialog__BoxFull">
+        <div class="BoxDialog__BoxMenu">
+            <div class="BoxDialog__MenuPart"></div>
+            <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
+            <div class="BoxDialog__MenuPart"> 
+                <div class="BoxDialog__MenuClose"></div>
+            </div>
+        </div>
+
+        <div class="BoxDialog__BoxContent">
+            <div class="BoxDial BoxDial--chEmail">
+                <h4 class="BoxDial__title">
+                    Zmień avatar:
+                </h4>
+                <div class="BoxDial__carousel">
+                    <label class="BoxDial__addFileAvatar">
+                        <input class="BoxDial__addFileAvatarInput" type="file" name="avatar" accept="image/*">
+                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="avatar" class="BoxDial__uploadAvatar">
+                        <div class="BoxDial__avatarPhotoSymbol"></div>
+                    </label>
+
+                    <img src="https://picsum.photos/80/80" alt="avatar" class="BoxDial__defaultAvater">
+                    <img src="https://picsum.photos/81/80" alt="avatar" class="BoxDial__defaultAvater">
+                    <img src="https://picsum.photos/80/81" alt="avatar" class="BoxDial__defaultAvater">
+                    <img src="https://picsum.photos/81/81" alt="avatar" class="BoxDial__defaultAvater">
+
+                </div>
+                <div class="BoxDial__ListButton">
+                    <button type="button" class="BoxDial__Button BoxDial__Button--remove">Usuń avatar</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</dialog>
+
+
+
+        <!--!-------------------------------------------------------------------------------------!-->
+        <!--?----------------------------------  WIDOK:  Profil ----------------------------------?-->
+        <!--!------------------------------------------------------------------------------------!-->
+        <section class="GW__User User User--hide">
+
+
+
+       
               <!--!-------------------------------------------------------------------------------------!-->
             <!--?------------------------------  MODUŁ:  Powiadomienia -------------------------------?-->
             <!--!------------------------------------------------------------------------------------!-->
@@ -17,155 +161,16 @@
                     <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
                     <span style="color: white"></span>
                 </div>
-
+                <div class="TopInfo__info" data-typinfo="off" data-timeinfo="yes" id="change_name_notification">
+                    <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
+                    <span style="color: white"></span>
+                </div>
             </aside>
 
 
 
 
 
-
-
-        <!--?       Profil -> Zmiana e-mail       -->
-        <dialog class="BoxDialog" data-dialogName="chEmail" data-dialogHeight="35">
-            <div class="BoxDialog__empty"></div>
-            <div class="BoxDialog__BoxFull">
-                <div class="BoxDialog__BoxMenu">
-                    <div class="BoxDialog__MenuPart"></div>
-                    <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
-                    <div class="BoxDialog__MenuPart"> 
-                        <div class="BoxDialog__MenuClose"></div>
-                    </div>
-                </div>
-
-                <div class="BoxDialog__BoxContent">
-                    <div class="BoxDial BoxDial--chEmail">
-                        <h4 class="BoxDial__title">
-                            Zmień e-mail:
-                        </h4>
-                        <input type="email" class="BoxDial__input BoxDial__input--chEmail1" placeholder="&#xf0e0;  Obecny adres e-mail" required>
-                        <input type="email" class="BoxDial__input BoxDial__input--chEmail2" placeholder="&#xe809;  Nowy adres e-mail" required>
-
-                        <div class="BoxDial__ListButton">
-                            <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
-                            <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </dialog>
-        
-
-        <!--?       Profil -> Zmiana Hasła       -->
-        <dialog class="BoxDialog" data-dialogName="chPass" data-dialogHeight="40">
-            <div class="BoxDialog__empty"></div>
-            <div class="BoxDialog__BoxFull">
-                <div class="BoxDialog__BoxMenu">
-                    <div class="BoxDialog__MenuPart"></div>
-                    <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
-                    <div class="BoxDialog__MenuPart"> 
-                        <div class="BoxDialog__MenuClose"></div>
-                    </div>
-                </div>
-
-                <div class="BoxDialog__BoxContent">
-                    <div class="BoxDial BoxDial--chEmail">
-                        <h4 class="BoxDial__title">
-                            Zmień hasło:
-                        </h4>
-                        <input type="password" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xf13e;  Obecne hasło" required>
-                        <input type="password" class="BoxDial__input BoxDial__input--chPass2" placeholder="&#xe82e;  Nowe hasło" required>
-                        <input type="password" class="BoxDial__input BoxDial__input--chPass3" placeholder="&#xe82e;  Powtórz nowe hasło" required>
-
-                        <div class="BoxDial__ListButton">
-                            <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
-                            <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </dialog>
-
-
-        <!--?       Profil -> Zmiana nazwy       -->
-        <dialog class="BoxDialog" data-dialogName="chName" data-dialogHeight="32">
-            <div class="BoxDialog__empty"></div>
-            <div class="BoxDialog__BoxFull">
-                <div class="BoxDialog__BoxMenu">
-                    <div class="BoxDialog__MenuPart"></div>
-                    <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
-                    <div class="BoxDialog__MenuPart"> 
-                        <div class="BoxDialog__MenuClose"></div>
-                    </div>
-                </div>
-
-                <div class="BoxDialog__BoxContent">
-                    <div class="BoxDial BoxDial--chEmail">
-                        <h4 class="BoxDial__title">
-                            Zmień nazwę:
-                        </h4>
-                        <input type="text" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xe815;  Nowa nazwa" required>
-                        <input type="text" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xe815;  Powtórz nową nazwa" required>
-
-                        <div class="BoxDial__ListButton">
-                            <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
-                            <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </dialog>
-
-
-        <!--?       Profil -> Zmiana avatara       -->
-        <dialog class="BoxDialog" data-dialogName="chAvatar" data-dialogHeight="32">
-            <div class="BoxDialog__empty"></div>
-            <div class="BoxDialog__BoxFull">
-                <div class="BoxDialog__BoxMenu">
-                    <div class="BoxDialog__MenuPart"></div>
-                    <div class="BoxDialog__MenuPart BoxDialog__MenuPart--center"></div>
-                    <div class="BoxDialog__MenuPart"> 
-                        <div class="BoxDialog__MenuClose"></div>
-                    </div>
-                </div>
-
-                <div class="BoxDialog__BoxContent">
-                    <div class="BoxDial BoxDial--chEmail">
-                        <h4 class="BoxDial__title">
-                            Zmień avatar:
-                        </h4>
-                        <div class="BoxDial__carousel">
-                            <label class="BoxDial__addFileAvatar">
-                                <input class="BoxDial__addFileAvatarInput" type="file" name="avatar" accept="image/*">
-                                <!--! TU BĘDZIE ŁADOWANY AWATAR PO WGRANIU \/  ten data:image jest po to by nie było alt-->
-                                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="avatar" class="BoxDial__uploadAvatar">
-                            </label>
-
-                            <img src="https://picsum.photos/80/80" alt="avatar" class="BoxDial__defaultAvater">
-                            <img src="https://picsum.photos/81/80" alt="avatar" class="BoxDial__defaultAvater">
-                            <img src="https://picsum.photos/80/81" alt="avatar" class="BoxDial__defaultAvater">
-                            <img src="https://picsum.photos/81/81" alt="avatar" class="BoxDial__defaultAvater">
-
-                        </div>
-                        <div class="BoxDial__ListButton">
-                            <button type="button" class="BoxDial__Button BoxDial__Button--remove">Usuń avatar</button>
-                            <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </dialog>
-
-
-
-            <!--!-------------------------------------------------------------------------------------!-->
-        <!--?----------------------------------  WIDOK:  Profil ----------------------------------?-->
-        <!--!------------------------------------------------------------------------------------!-->
-        <section class="GW__User User User--hide">
             <header class="User__header">
                 <h2 class="User__title">Witaj Tomek</h2>
                 <div class="User__TopMenu">
@@ -174,7 +179,7 @@
                     </div>
                     <div class="User__CenterBox">
                         <div class="User__TopAvatar">
-                            <img class="User__TopAvatarImg" src="https://picsum.photos/120/120" alt="">
+                            <img class="User__TopAvatarImg" src="" alt="" id="user_avatar">
                             <div class="User__TopAvatarNoImg"></div>
                         </div>
                     </div>
@@ -186,14 +191,14 @@
             <div class="User__BottomMenu">
                 <div class="User__BottomFirst">
                     Sloty wolne
-                    <div>
-                        10
+                    <div id="user_slots">
+                        -
                     </div>
                 </div>
                 <div class="User__BottomSecond">
                     Sloty zajęte
-                    <div>
-                        2
+                    <div id="used_slots">
+                        -
                     </div>
                 </div>
             </div>
@@ -203,19 +208,19 @@
                     <H3 class="User__BoxTitile User__BoxTitile--first">
                         Konto
                     </H3>
-                    <a class="User__BoxLink User__BoxLink--Uemail">
+                    <a href="javascript:location.search+='&box=chEmail';" class="User__BoxLink User__BoxLink--Uemail">
                         Zmień e-mail
                     </a>
-                    <a  class="User__BoxLink User__BoxLink--Upassword">
+                    <a href="javascript:location.search+='&box=chPass';" class="User__BoxLink User__BoxLink--Upassword">
                         Zmień hasło
                     </a>
-                    <a  class="User__BoxLink User__BoxLink--Uname">
+                    <a  class="User__BoxLink User__BoxLink--Uname" id="button_change_name_dialog">
                         Zmień nazwę
                     </a>
-                    <a  class="User__BoxLink User__BoxLink--Uavatra">
+                    <a href="javascript:location.search+='&box=chAvatar';" class="User__BoxLink User__BoxLink--Uavatra">
                         Zmień avatar
                     </a>
-                    <a  class="User__BoxLink User__BoxLink--Ulogout">
+                    <a href="#" class="User__BoxLink User__BoxLink--Ulogout">
                         Wyloguj
                     </a>
                 </div>
@@ -254,4 +259,3 @@
 
             </div>
         </section>
-

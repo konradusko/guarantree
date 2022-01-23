@@ -1,7 +1,6 @@
 export default async function home_main_after_auth(){
    const create_token = await import ('../create_token.js')
    const get_data = await import('../get_data_from_server.js')
-   const set_user_avatar = await import('../after_auth/home/set_user_avatar.js')
    const calculate_and_inner_data = await import('../after_auth/home/calculate.js')
    const get_days_in_month = await import('../get_days_in_month.js')
    const scroll_config = await import('../scroll_config.js')
@@ -24,7 +23,7 @@ export default async function home_main_after_auth(){
       window.location.href='/Shop'
    })
 
-   get_data.default(create_token,'/getHome',10,[{key:'xd',value:'xd'}]).then(({items,user_avatar})=>{
+   get_data.default(create_token,'/getHome',10).then(({items,user_avatar})=>{
       
        //search button logic
        const container_for_items =  document.querySelector('#main_items_container')
@@ -61,7 +60,10 @@ export default async function home_main_after_auth(){
     })
 
        //wyswietlamy avatara uzytkownika
-       set_user_avatar.default(user_avatar)
+       const html_avatar = document.querySelector('#home_page_user_avatar')
+       html_avatar.src = user_avatar.avatar_path
+       html_avatar.dataset.Public = user_avatar.avatar_public
+       html_avatar.dataset.AvatarId = user_avatar.avatar_id
 
        container_for_items.innerHTML = ''
        //wlaczam scroll
