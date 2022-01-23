@@ -1,6 +1,6 @@
 
 
-const post_routers_config = (req,res,next)=>{
+const post_routers_config_home = (req,res,next)=>{
         res.locals.post_config ={
             body_keys_allow_to_pass:[],
             body_keys_require_to_validate:['token'],
@@ -10,4 +10,4 @@ const post_routers_config = (req,res,next)=>{
         }
         next()
 }
-export{post_routers_config}
+export{post_routers_config_home}

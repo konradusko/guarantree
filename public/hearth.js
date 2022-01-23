@@ -12,7 +12,7 @@ const engine = (urlPath)=>{
     firebase.initializeApp(firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
         const send_req = async()=>{
-            const token = await user.getIdToken(true)
+            const token = user != null? await user.getIdToken(true):'null'
             fetch(urlPath,{
             method:"POST",
             headers:{
@@ -23,6 +23,7 @@ const engine = (urlPath)=>{
         })
         .then(response => response.json()) // convert to json
         .then(async(json)=>{
+            console.log(json)
             if('redirect' in json)
                 return location.href = json.redirect
             if(!('redirect' in json)){

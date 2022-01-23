@@ -22,20 +22,22 @@ import { middleware_type_of_data } from './middlewares/check_type_string.js'
 import { check_token_middleware } from './middlewares/check_token.js'
 import {check_duplicate_exists} from './middlewares/check_duplicate_exists.js'
 import {get_only_using_token_config} from './configs/getters/get_only_using_token_config.js'
+
+//config do avatarow uzytkownika
+import {user_avatar_info} from './configs/user/avatar_info.js'
 //get reqests
 
 /**HOME AFTER AUTH
  * 
  */
-import {post_routers_config} from './configs/post_routers/after_auth/after_auth_home_config.js'
+import {post_routers_config_home} from './configs/post_routers/after_auth/after_auth_home_config.js'
 import {home_after_login} from './get_requests/home_after_login.js'
 app.get('/home',home_after_login)
 app.post('/home',
         middleware_type_of_data,
         middleware_find_html,
         check_duplicate_exists,
-        check_token_middleware,
-        post_routers_config,
+        post_routers_config_home,
         home_after_login
 )
 //po wejsciu na strone główną
@@ -52,10 +54,41 @@ app.post('/gethome',
 )
 
 
+
+//user profile after auth
+import {post_routers_config_profile} from './configs/post_routers/after_auth/after_auth_profile_config.js'
+import {profile_after_login} from './get_requests/profile_after_login.js'
+app.get('/profile',profile_after_login)
+app.post('/profile',
+        middleware_type_of_data,
+        middleware_find_html,
+        check_duplicate_exists,
+        post_routers_config_profile,
+        profile_after_login
+)
+//pobranie danych po wejsciu na profil
+import {get_profile_data_config} from './configs/getters/get_data_profile_after_L_config.js'
+import {get_profile_info} from './post_requests/profile_after_login/get_profile_info.js'
+app.post('/getProfileData',
+        middleware_type_of_data,
+        middleware_find_html,
+        check_duplicate_exists,
+        check_token_middleware,
+        get_only_using_token_config,//config do sprawdzania zawartosci body
+        get_profile_data_config,//config do pobrania danych profilu
+        user_avatar_info,
+        get_profile_info//funkcja 
+)
+
+
+
+
+
+
 //post register
 import {create_account} from './post_requests/user/create_account.js'
 import {create_account_config} from './configs/user/create_account_config.js'
-import {user_avatar_info} from './configs/user/avatar_info.js'
+
 
 /*
 @createAccount
