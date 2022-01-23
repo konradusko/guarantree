@@ -2,6 +2,7 @@ export default  function get_data_from_server(create_token,href,max_req_send,arr
     //'/getProfileData'
     return new Promise((res,rej)=>{
         const notification_info = document.querySelector('#get_data_info')
+        console.log(notification_info)
         let count = 0,max_count = max_req_send
         const get_date_check = async()=>{
             const token = await create_token.default()
@@ -42,7 +43,7 @@ export default  function get_data_from_server(create_token,href,max_req_send,arr
             .catch(()=>{
                 
                 notification_info.children[0].innerText = `Brak połączenia, ponawiam próbę.`
-                notification_info.dataset.timeinfo = 'no'
+                notification_info.dataset.timeinfo = 'yes'
                 notification_info.dataset.typinfo = 'alert'
                 setTimeout(() => {
                 return  get_date_check()

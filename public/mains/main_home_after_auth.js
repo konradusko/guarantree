@@ -24,7 +24,7 @@ export default async function home_main_after_auth(){
       window.location.href='/Shop'
    })
 
-   get_data.default(create_token,'/getHome',10).then(({items,user_avatar})=>{
+   get_data.default(create_token,'/getHome',10,[{key:'xd',value:'xd'}]).then(({items,user_avatar})=>{
       
        //search button logic
        const container_for_items =  document.querySelector('#main_items_container')
@@ -115,6 +115,10 @@ export default async function home_main_after_auth(){
        })
    }).catch(()=>{
       console.log('przycisk do przeladowania')
+      const notification_data = document.querySelector('#get_data_info')
+      notification_data.children[0].innerText = `Nie udało się pobrać danych, odśwież aplikacje.`
+      notification_data.dataset.timeinfo = 'no'
+      notification_data.dataset.typinfo = 'alert'
    })
      
 }

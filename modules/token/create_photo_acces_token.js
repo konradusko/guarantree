@@ -6,14 +6,18 @@ const create_token_photo = (file,time)=>{
         const my_photo = storage().bucket().file(file)
         if(my_photo.exists()){
             const create_minutes = time*60000
-            const url = await  my_photo.getSignedUrl({
-                version: "v4",
-                action: "read",
-                expires: Date.now() + create_minutes,
-            })
-           return res(url)
+            try {
+                const url = await  my_photo.getSignedUrl({
+                    version: "v4",
+                    action: "read",
+                    expires: Date.now() + create_minutes,
+                })
+               return res(url)
+            } catch (error) {
+                return rej()
+            }
+         
         }else{
-            console.log('lelelle')
            return rej('Zdjęcie nie istnieje!')
         }
     })

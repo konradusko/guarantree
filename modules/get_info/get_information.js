@@ -62,6 +62,18 @@ const get_information = (data)=>{
                             item_name:firebase_data._fieldsProto.item_name.stringValue
                         })
                     break;
+                    case 'requireProfile':
+                        res({
+                            avatar:{
+                                avatar_id:firebase_data._fieldsProto.avatar.mapValue.fields.id.stringValue,
+                                avatar_path:firebase_data._fieldsProto.avatar.mapValue.fields.path.stringValue,
+                                avatar_type:firebase_data._fieldsProto.avatar.mapValue.fields.type.stringValue,
+                                avatar_public:firebase_data._fieldsProto.avatar.mapValue.fields.public.booleanValue
+                                },
+                            slots:firebase_data._fieldsProto.slots.integerValue,
+                            itemsLength:firebase_data._fieldsProto.items.arrayValue.values.length
+                        })
+                    break
                 default:
                     rej()
                     break;

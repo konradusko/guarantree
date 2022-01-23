@@ -39,7 +39,7 @@ get_items_home_page.post('/gethome',async(req,res)=>{
                 }
             }
             try {
-                avatar.avatar_path = (await create_token_photo(avatar.avatar_path,_personal_config.tokens.avatar_user))[0]
+                avatar.avatar_path = (await create_token_photo(avatar.avatar_path,_personal_config.tokens.avatar))[0]
             } catch (error) {
                 avatar.avatar_path = ''
             }
