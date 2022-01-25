@@ -1,16 +1,18 @@
-export default  function get_data_from_server(create_token,href,max_req_send,arr_Addisional_data){
+export default  function get_data_from_server(notificationFunction,create_token,href,max_req_send,arr_Addisional_data){
     //'/getProfileData'
     return new Promise((res,rej)=>{
-        const notification_info = document.querySelector('#get_data_info')
-        console.log(notification_info)
-        let count = 0,max_count = max_req_send
-        const get_date_check = async()=>{
-            const token = await create_token.default()
-            let data_for_body = {token:token}
-            if(arr_Addisional_data != undefined)
+        const mainNotification = 'main_container_notification',
+            idNotification = 'DataFromServerNotification'
+        let count = 0,max_count = max_req_send,
+         data_for_body = new Object
+         if(arr_Addisional_data != undefined)
             for(const e in arr_Addisional_data){
                 data_for_body[arr_Addisional_data[e].key] = arr_Addisional_data[e].value
             }
+        const get_date_check = async()=>{
+            if(document.querySelector(`#${idNotification}`) != undefined)
+            document.querySelector(`#${idNotification}`).remove()
+            data_for_body['token'] = await create_token.default()
             fetch(href,{
                 method:"POST",
                 headers:{
@@ -25,26 +27,40 @@ export default  function get_data_from_server(create_token,href,max_req_send,arr
                     count++
                     if(count >= max_count)
                         return rej(data)
-                        
-                    notification_info.children[0].innerText = data.message
-                    notification_info.dataset.timeinfo = 'no'
-                    notification_info.dataset.typinfo = 'alert'
+
+                    notificationFunction({
+                        main_container:mainNotification,
+                        text:data.message,
+                        typInformation:'alert',
+                        timeInformation:'yes',
+                        remove:true,
+                        idNotification:idNotification
+                    })
                     setTimeout(() => {
                         return  get_date_check()
                         }, 4000);
                 }else{
-                    notification_info.dataset.typinfo = 'off'
-                    notification_info.children[0].innerText = data.message
-                    notification_info.dataset.timeinfo = 'yes'
-                    notification_info.dataset.typinfo = 'info'
+                    notificationFunction({
+                        main_container:mainNotification,
+                        text:data.message,
+                        typInformation:'info',
+                        timeInformation:'yes',
+                        remove:true,
+                        idNotification:idNotification
+                    })
                     res(data)
                 }
             })
             .catch(()=>{
                 
-                notification_info.children[0].innerText = `Brak połączenia, ponawiam próbę.`
-                notification_info.dataset.timeinfo = 'yes'
-                notification_info.dataset.typinfo = 'alert'
+                    notificationFunction({
+                        main_container:mainNotification,
+                        text:`Brak połączenia, ponawiam próbę.`,
+                        typInformation:'alert',
+                        timeInformation:'yes',
+                        remove:true,
+                        idNotification:idNotification
+                    })
                 setTimeout(() => {
                 return  get_date_check()
                 }, 4000);

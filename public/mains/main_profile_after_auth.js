@@ -3,6 +3,7 @@ export default async function main_profile(){
     const get_data_profile = await import('../get_data_from_server.js')
     const boxes = await import('../boxes.js')
     const change_name_F = await import('../after_auth/profile/change_name.js')
+    const notification_F = await import('../global_notification.js')
     /** 
      * 
      * dodac przyciski do zmiany e-mail
@@ -16,9 +17,11 @@ export default async function main_profile(){
     document.querySelector('#button_change_name_dialog').addEventListener('click',()=>{
         boxes.default('chName')
     })
-    document.querySelector('#button_change_name').addEventListener('click',change_name_F.default)
+    document.querySelector('#button_change_name').addEventListener('click',function(){
+        change_name_F.default(this,notification_F.default)
+    })
     //zmień avatar będzie dostępny tylko i wyłącznie po pobraniu danych
-    get_data_profile.default(create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{
+    get_data_profile.default(notification_F.default,create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{
         //wyswietlamy sloty
         document.querySelector('#user_slots').innerText=slots;
         //wyswietlam sloty zajęte
@@ -36,10 +39,14 @@ export default async function main_profile(){
 
     })
     .catch((data)=>{
-        const notification_data = document.querySelector('#get_data_info')
-        notification_data.children[0].innerText = `Nie udało się pobrać danych, odśwież aplikacje.`
-        notification_data.dataset.timeinfo = 'no'
-        notification_data.dataset.typinfo = 'alert'
+        notification_F.default({
+            main_container:`main_container_notification`,
+            text:`Nie udało się pobrać danych, odśwież aplikacje.`,
+            typInformation:'alert',
+            timeInformation:'no',
+            remove:false,
+            idNotification:'ErrorConnection'
+        })
     })
 
 }

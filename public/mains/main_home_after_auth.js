@@ -5,6 +5,7 @@ export default async function home_main_after_auth(){
    const get_days_in_month = await import('../get_days_in_month.js')
    const scroll_config = await import('../scroll_config.js')
    const boxes = await import('../boxes.js')
+   const notification_F = await import('../global_notification.js')
    //tablica z wszystkimi przedmiotami
    let items_ = new Array
    //dodaje przyciski do profilu dodania przedmiotu sklepu
@@ -23,7 +24,7 @@ export default async function home_main_after_auth(){
       window.location.href='/Shop'
    })
 
-   get_data.default(create_token,'/getHome',10).then(({items,user_avatar})=>{
+   get_data.default(notification_F.default,create_token,'/getHome',10).then(({items,user_avatar})=>{
       
        //search button logic
        const container_for_items =  document.querySelector('#main_items_container')
@@ -79,7 +80,10 @@ export default async function home_main_after_auth(){
                       count++
                 }   
                 window.location.href=`/item?itemId=${element.dataset.IdItem}`  
+     
           })
+
+    
        })
        const sort_inner_element = (check_end)=>{
           let i =0,arr_for_end = new Array
@@ -116,11 +120,14 @@ export default async function home_main_after_auth(){
              sort_inner_element(true)
        })
    }).catch(()=>{
-      console.log('przycisk do przeladowania')
-      const notification_data = document.querySelector('#get_data_info')
-      notification_data.children[0].innerText = `Nie udało się pobrać danych, odśwież aplikacje.`
-      notification_data.dataset.timeinfo = 'no'
-      notification_data.dataset.typinfo = 'alert'
+      notification_F.default({
+         main_container:`main_container_notification`,
+         text:`Nie udało się pobrać danych, odśwież aplikacje.`,
+         typInformation:'alert',
+         timeInformation:'no',
+         remove:false,
+         idNotification:'ErrorConnection'
+     })
    })
      
 }

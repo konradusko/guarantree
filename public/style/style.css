@@ -192,8 +192,10 @@ a {
 }
 
 .TopInfo__info[data-typinfo="alert"] {
+  display:none;
   background-color: #F81C00;
   color: #ffffff;
+  display:block;
 }
 
 .TopInfo__info[data-typinfo="alert"]::before {
@@ -205,8 +207,10 @@ a {
 }
 
 .TopInfo__info[data-typinfo="info"] {
+  display:none;
   background-color: #2196F3;
   color: #ffffff;
+  display:block;
 }
 
 .TopInfo__info[data-typinfo="info"]::before {
@@ -237,6 +241,7 @@ a {
           animation-timing-function: ease-in-out;
   -webkit-animation-fill-mode: forwards;
           animation-fill-mode: forwards;
+   
 }
 
 .TopInfo__info[data-timeinfo="yes"]::after {
