@@ -12,7 +12,8 @@ export default async function main_profile(){
      * do wylogowania sie
      * etc
      */
-    console.log(firebase.auth().currentUser)
+    //wyswietlam nazwe uzytkownika
+    document.querySelector('#userName').innerText = `Witaj ${firebase.auth().currentUser.displayName}`
     //zmiana nazwy
     document.querySelector('#button_change_name_dialog').addEventListener('click',()=>{
         boxes.default('chName')
