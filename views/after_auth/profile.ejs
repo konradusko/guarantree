@@ -26,12 +26,13 @@
                 <h4 class="BoxDial__title">
                     Zmień e-mail:
                 </h4>
-                <input type="email" class="BoxDial__input BoxDial__input--chEmail1" placeholder="&#xf0e0;  Obecny adres e-mail" required>
-                <input type="email" class="BoxDial__input BoxDial__input--chEmail2" placeholder="&#xe809;  Nowy adres e-mail" required>
+                <input type="email" class="BoxDial__input BoxDial__input--chEmail1" placeholder="&#xf0e0;  Obecny adres e-mail" id="change_email_currentEmail" required>
+                <input type="password" class="BoxDial__input BoxDial__input--chEmail2" placeholder="&#xf13e;  Obecne hasło" id="change_email_currentPassword" required>
+                <input type="email" class="BoxDial__input BoxDial__input--chEmail3" placeholder="&#xe809;  Nowy adres e-mail" id="change_email_newEmail" required>
 
                 <div class="BoxDial__ListButton">
                     <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
-                    <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept" id="button_change_email">Zastosuj</button>
                 </div>
             </div>
 
@@ -205,7 +206,7 @@
                     <H3 class="User__BoxTitile User__BoxTitile--first">
                         Konto
                     </H3>
-                    <a href="javascript:location.search+='&box=chEmail';" class="User__BoxLink User__BoxLink--Uemail">
+                    <a  class="User__BoxLink User__BoxLink--Uemail" id="button_change_email_dialog">
                         Zmień e-mail
                     </a>
                     <a href="javascript:location.search+='&box=chPass';" class="User__BoxLink User__BoxLink--Upassword">
