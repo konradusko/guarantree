@@ -4,6 +4,7 @@ export default async function main_profile(){
     const boxes = await import('../boxes.js')
     const change_name_F = await import('../after_auth/profile/change_name.js')
     const change_Email_F = await import('../after_auth/profile/change_email.js')
+    const change_Password_F = await import('../after_auth/profile/change_password.js')
     const notification_F = await import('../global_notification.js')
 
     console.log(firebase.auth().currentUser.email)
@@ -24,11 +25,17 @@ export default async function main_profile(){
     document.querySelector('#button_change_email_dialog').addEventListener('click',()=>{
         boxes.default('chEmail')
     })
+    document.querySelector('#button_change_password_dialog').addEventListener('click',()=>{
+        boxes.default('chPass')
+    })
     document.querySelector('#button_change_name').addEventListener('click',function(){
         change_name_F.default(this,notification_F.default)
     })
     document.querySelector('#button_change_email').addEventListener('click',function(){
         change_Email_F.default(this,notification_F.default)
+    })
+    document.querySelector('#button_change_password').addEventListener('click',function(){
+        change_Password_F.default(this,notification_F.default)
     })
     //zmień avatar będzie dostępny tylko i wyłącznie po pobraniu danych
     get_data_profile.default(notification_F.default,create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{

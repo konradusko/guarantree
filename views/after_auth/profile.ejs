@@ -58,13 +58,13 @@
                 <h4 class="BoxDial__title">
                     Zmień hasło:
                 </h4>
-                <input type="password" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xf13e;  Obecne hasło" required>
-                <input type="password" class="BoxDial__input BoxDial__input--chPass2" placeholder="&#xe82e;  Nowe hasło" required>
-                <input type="password" class="BoxDial__input BoxDial__input--chPass3" placeholder="&#xe82e;  Powtórz nowe hasło" required>
+                <input type="password" class="BoxDial__input BoxDial__input--chPass1" placeholder="&#xf13e;  Obecne hasło" id="change_password_currentPassword" required>
+                <input type="password" class="BoxDial__input BoxDial__input--chPass2" placeholder="&#xe82e;  Nowe hasło" id="change_password_n_1" required>
+                <input type="password" class="BoxDial__input BoxDial__input--chPass3" placeholder="&#xe82e;  Powtórz nowe hasło" id="change_password_n_2" required>
 
                 <div class="BoxDial__ListButton">
                     <button type="button" class="BoxDial__Button BoxDial__Button--cancel">Anuluj</button>
-                    <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept" id="button_change_password">Zastosuj</button>
                 </div>
             </div>
 
@@ -209,7 +209,7 @@
                     <a  class="User__BoxLink User__BoxLink--Uemail" id="button_change_email_dialog">
                         Zmień e-mail
                     </a>
-                    <a href="javascript:location.search+='&box=chPass';" class="User__BoxLink User__BoxLink--Upassword">
+                    <a  class="User__BoxLink User__BoxLink--Upassword" id="button_change_password_dialog">
                         Zmień hasło
                     </a>
                     <a  class="User__BoxLink User__BoxLink--Uname" id="button_change_name_dialog">
