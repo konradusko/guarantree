@@ -121,22 +121,19 @@
                 <h4 class="BoxDial__title">
                     Zmień avatar:
                 </h4>
-                <div class="BoxDial__carousel">
-                    <label class="BoxDial__addFileAvatar">
-                        <input class="BoxDial__addFileAvatarInput" type="file" name="avatar" accept="image/*">
-                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="avatar" class="BoxDial__uploadAvatar">
+                <div class="BoxDial__carousel" id="box_for_avatar_images">
+                    <label class="BoxDial__addFileAvatar" >
+                        <input class="BoxDial__addFileAvatarInput" type="file" name="avatar" id="button_select_avatar" >
+                        <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="avatar" class="BoxDial__uploadAvatar" id="imgNewAvatar">
                         <div class="BoxDial__avatarPhotoSymbol"></div>
                     </label>
 
-                    <img src="https://picsum.photos/80/80" alt="avatar" class="BoxDial__defaultAvater">
-                    <img src="https://picsum.photos/81/80" alt="avatar" class="BoxDial__defaultAvater">
-                    <img src="https://picsum.photos/80/81" alt="avatar" class="BoxDial__defaultAvater">
-                    <img src="https://picsum.photos/81/81" alt="avatar" class="BoxDial__defaultAvater">
+
 
                 </div>
                 <div class="BoxDial__ListButton">
                     <button type="button" class="BoxDial__Button BoxDial__Button--remove">Usuń avatar</button>
-                    <button type="button" class="BoxDial__Button BoxDial__Button--accept">Zastosuj</button>
+                    <button type="button" class="BoxDial__Button BoxDial__Button--accept" id="button_change_avatar">Zastosuj</button>
                 </div>
             </div>
 
@@ -215,7 +212,7 @@
                     <a  class="User__BoxLink User__BoxLink--Uname" id="button_change_name_dialog">
                         Zmień nazwę
                     </a>
-                    <a href="javascript:location.search+='&box=chAvatar';" class="User__BoxLink User__BoxLink--Uavatra">
+                    <a  class="User__BoxLink User__BoxLink--Uavatra" id="button_change_avatar_dialog">
                         Zmień avatar
                     </a>
                     <a href="#" class="User__BoxLink User__BoxLink--Ulogout">

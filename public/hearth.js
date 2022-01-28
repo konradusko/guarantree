@@ -42,7 +42,7 @@ const engine = (urlPath)=>{
             <aside class="GW__TopInfo TopInfo" id="notification_main">
             <div class="TopInfo__info" data-typinfo="alert" data-timeinfo="yes">
                 <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
-                <span style="color: red">Arkusz motywu nie został załadowany poprawnie</span>
+                <span style="color: white">Arkusz motywu nie został załadowany poprawnie</span>
                 </div>
             </aside>
             `

@@ -12,25 +12,25 @@ const user_avatar_info = (req,res,next)=>{
         public_avatars:[
             {
              public:true,
-             path:'./path1',
+             path:'public/1.png',
              type:'Tavatar',
              id:makeId(20)
             },
             {
             public:true,
-            path:'./path2',
+            path:'public/2.PNG',
             type:'image/png',
             id:makeId(20)
             },
             {
             public:true,
-            path:'./path3',
+            path:'public/3.PNG',
             type:'image/png',
             id:makeId(20)
             },
             {
                 public:true,
-                path:'./path1',
+                path:'public/4.PNG',
                 type:'image/png',
                 id:makeId(20)
                },

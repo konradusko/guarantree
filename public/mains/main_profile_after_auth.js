@@ -6,8 +6,11 @@ export default async function main_profile(){
     const change_Email_F = await import('../after_auth/profile/change_email.js')
     const change_Password_F = await import('../after_auth/profile/change_password.js')
     const notification_F = await import('../global_notification.js')
+    const add_file_F = await import ('../add_file.js')
+    let avatar = null;
+    const changeAvatarNotificationId = 'notificationChangeAvatarInfo'
+    const avatarImageFromUser = document.querySelector('#imgNewAvatar')
 
-    console.log(firebase.auth().currentUser.email)
     /** 
      * 
      * dodac przyciski do zmiany e-mail
@@ -28,6 +31,7 @@ export default async function main_profile(){
     document.querySelector('#button_change_password_dialog').addEventListener('click',()=>{
         boxes.default('chPass')
     })
+
     document.querySelector('#button_change_name').addEventListener('click',function(){
         change_name_F.default(this,notification_F.default)
     })
@@ -37,6 +41,11 @@ export default async function main_profile(){
     document.querySelector('#button_change_password').addEventListener('click',function(){
         change_Password_F.default(this,notification_F.default)
     })
+
+    function clearAvatar(){
+        avatar = null
+        avatarImageFromUser.src = ""
+    }
     //zmień avatar będzie dostępny tylko i wyłącznie po pobraniu danych
     get_data_profile.default(notification_F.default,create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{
         //wyswietlamy sloty
@@ -45,15 +54,52 @@ export default async function main_profile(){
         document.querySelector('#used_slots').innerText=itemsLength
         //wyświetlam zdjęcie użytkownika
 
-
+        console.log(public_avatars)
         const user_avatar_HTML = document.querySelector('#user_avatar')
         user_avatar_HTML.src = userAvatar.avatar_path
         user_avatar_HTML.dataset.Public = userAvatar.avatar_public
         user_avatar_HTML.dataset.AvatarId = userAvatar.avatar_id
 
+        let img
+        const box_for_avatar_images = document.querySelector('#box_for_avatar_images');
+        for(const xd in public_avatars){
+            img = document.createElement('img')
+            img.dataset.id = xd
+            img.dataset.public = public_avatars[xd].public
+            img.src = public_avatars[xd].path
+            img.className = 'BoxDial__defaultAvater'
+            img.alt = 'Avatar'
+            box_for_avatar_images.appendChild(img)
+            img.addEventListener('click',function(){
+                avatar = this.dataset.id
+                if(avatarImageFromUser.src != "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")
+                avatarImageFromUser.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            })
+        }
 
         //dodaje przyciski
-
+        document.querySelector('#button_change_avatar_dialog').addEventListener('click',()=>{
+            clearAvatar()
+            boxes.default('chAvatar',clearAvatar)
+        })
+        document.querySelector('#button_select_avatar').addEventListener('change', async function(event){
+               await add_file_F.default({maxSize:2100000,allowFormat:["image/jpeg","image/png","application/pdf"],event})
+                    .then(({fileBase64,format})=>{
+                    avatarImageFromUser.src = fileBase64
+                    avatar = fileBase64
+                    })
+                    .catch((error)=>{
+                        notification_F.default({
+                            main_container:`main_container_notification`,
+                            text:error,
+                            typInformation:'alert',
+                            timeInformation:'yes',
+                            remove:true,
+                            idNotification:changeAvatarNotificationId
+                        })
+                    })
+                    console.log(avatar)
+        })
     })
     .catch((data)=>{
         notification_F.default({
