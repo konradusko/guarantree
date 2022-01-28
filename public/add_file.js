@@ -6,6 +6,8 @@ export default function addFile({
     return new Promise((res,rej)=>{
     
             const files = event.target.files[0]
+            if(files === undefined)
+                return rej('Nie wybrano pliku')
             if(files.size > maxSize)
                 return rej('Plik jest za duży')
             

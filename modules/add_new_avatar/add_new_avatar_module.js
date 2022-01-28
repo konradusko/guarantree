@@ -26,7 +26,7 @@ const add_new_avatar_module = (data)=>{
                 })
                 custom = false;
             } catch (info) {
-                return rej({message:info})
+                return rej({message:info,internal_error:true})
             }
         }
     
@@ -47,7 +47,7 @@ const add_new_avatar_module = (data)=>{
                     //jest publiczny avatar, i zmiana na kolejnego publicznego
                     //sprawdzam czy nie jest taki sam przypadkiem
                     if(current_avatar.avatar_path === avatar.path && current_avatar.avatar_type === avatar.type)//sa takie same
-                    return rej({message:'Avatar jest taki sam jak obecny.'})
+                    return rej({message:'Avatar jest taki sam jak obecny.',internal_error:true})
     
                     //teraz zaktualizować o avatara
                     try {
@@ -58,12 +58,13 @@ const add_new_avatar_module = (data)=>{
                         })
                         try {
                             token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                            return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
+                            delete avatar['path']
+                            return res({message:'Avatar został zaktualizowany.',token:token_acces[0],avatar})
                         } catch (error) {
-                            return res({message:'Avatar został zaktualizowany.',token:''})
+                            return res({message:'Avatar został zaktualizowany.1132',token:''})
                         }
                     } catch (error) {
-                        return rej({message:'Wystąpił błąd, spróbuj ponownie1.'})
+                        return rej({message:'Wystąpił błąd, spróbuj ponownie',internal_error:true})
                     }
                 }else{
                     // tutaj wystarczy tylko dodać avatara nowego do bazy danych i zaktualizować informacje
@@ -89,9 +90,10 @@ const add_new_avatar_module = (data)=>{
                             })
                             try {
                                 token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                                return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
+                                delete avatar['path']
+                                return res({message:'Avatar został zaktualizowany.',token:token_acces[0],avatar})
                             } catch (error) {
-                                return res({message:'Avatar został zaktualizowany.'})
+                                return res({message:'Avatar został zaktualizowany.312xd',token:''})
                             }
                         } catch (error) {
                             //usuwam zbędne i tyle
@@ -100,10 +102,10 @@ const add_new_avatar_module = (data)=>{
                                 await remove_file(avatar.path)
                             } catch (error) {}
                          
-                            return rej({message:'Nie udało się zaktualizować avatara.'})
+                            return rej({message:'Nie udało się zaktualizować avatara.',internal_error:true})
                         }
                     } catch (error) {
-                        return rej({message:'Nie udało się zaktualizować avatara.'})
+                        return rej({message:'Nie udało się zaktualizować avatara.',internal_error:true})
                     }
                 }
             }else{
@@ -124,12 +126,13 @@ const add_new_avatar_module = (data)=>{
                         } catch (error) {}
                         try {
                             token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                            return res({message:'Avatar został zaktualizowany.',token:token_acces[0]})
+                            delete avatar['path']
+                            return res({message:'Avatar został zaktualizowany.',token:token_acces[0],avatar})
                         } catch (error) {
-                            return res({message:'Avatar został zaktualizowany.'})
+                            return res({message:'Avatar został zaktualizowany.xxxxxxxxxx',token:''})
                         }
                     } catch (error) {
-                        return rej({message:'Nie udało się zaktualizować avatara.'})
+                        return rej({message:'Nie udało się zaktualizować avatara',internal_error:true})
                     }
                 }else{
                     //najpierw daje mu podstawowego
@@ -171,23 +174,22 @@ const add_new_avatar_module = (data)=>{
                                 data_to_add:{avatar}
                             })
                             try {
-                                token_acces = await create_token_photo(avatar.path,config.create_token_minutes[0])
-                                console.log(token_acces)
-                                return res({message:'Avatar został zaktualizowany.',token:token_acces})
+                                token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
+                                delete avatar['path']
+                                return res({message:'Avatar został zaktualizowany.',token:token_acces[0],avatar})
                             } catch (error) {
-                                return res({message:'Avatar został zaktualizowany.'})
+                                return res({message:'Avatar został zaktualizowany.dasewqeqwewqdsa',token:''})
                             }
                         } catch (error) {
-                            return rej({message:'Nie udało się zaktualizować avatara.'})
+                            return rej({message:'Nie udało się zaktualizować avatara',internal_error:true})
                         }
                     } catch (error) {
-                        return rej({message:'Nie udało się zaktualizować avatara.'})
+                        return rej({message:'Nie udało się zaktualizować avatara',internal_error:true})
                     }
                 }
             }
         } catch (error) {
-            console.log(error)
-            return rej({message:'Wystąpił błąd, spróbuj ponownie4.'})
+            return rej({message:'Wystąpił błąd, spróbuj ponownie',internal_error:true})
         }
     })
 }

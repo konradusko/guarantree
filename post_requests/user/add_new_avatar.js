@@ -12,7 +12,7 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
 
     const check_body = validate_body_keys_with_return({body:body,require_to_validate:config.body_keys_require_to_validate,allow_to_pass:config.body_keys_allow_to_pass})
     if(!check_body)
-    return res.json({message:'Body zawiera niedozwolone parametry.'})
+    return res.json({message:'Body zawiera niedozwolone parametry.',internal_error:true})
     if(typeof check_body === 'string')
     return res.json({message:check_body})
 
@@ -36,7 +36,7 @@ add_new_avatar.post('/addNewUserAvatar',async(req,res)=>{
         return res.json(error)
     }
     } catch (error) {
-        return res.json({message:'Nie udało się dodać avataru.'})
+        return res.json({message:'Nie udało się dodać avataru.',internal_error:true})
     }
     
    

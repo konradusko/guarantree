@@ -1,9 +1,11 @@
 export default  function get_data_from_server(notificationFunction,create_token,href,max_req_send,arr_Addisional_data){
     //'/getProfileData'
     return new Promise((res,rej)=>{
+      
         const mainNotification = 'main_container_notification',
             idNotification = 'DataFromServerNotification'
         let count = 0,max_count = max_req_send,
+        countRequest =0, max_count_request = 10,
          data_for_body = new Object
          if(arr_Addisional_data != undefined)
             for(const e in arr_Addisional_data){
@@ -23,11 +25,9 @@ export default  function get_data_from_server(notificationFunction,create_token,
             })
             .then(response => response.json()) // convert to json
             .then((data)=>{
+         
                 if('internal_error' in data && data.internal_error){
                     count++
-                    if(count >= max_count)
-                        return rej(data)
-
                     notificationFunction({
                         main_container:mainNotification,
                         text:data.message,
@@ -36,6 +36,10 @@ export default  function get_data_from_server(notificationFunction,create_token,
                         remove:true,
                         idNotification:idNotification
                     })
+                    if(count >= max_count)
+                        return rej(data)
+
+                 
                     setTimeout(() => {
                         return  get_date_check()
                         }, 4000);
@@ -48,13 +52,15 @@ export default  function get_data_from_server(notificationFunction,create_token,
                         remove:true,
                         idNotification:idNotification
                     })
-                    res(data)
+                   return res(data)
                 }
             })
             .catch(()=>{
-                
+                    countRequest++
+                    if(countRequest >=max_count_request)
+                       return rej({message:'Nie udało się połączyć z serwerem'})
                     notificationFunction({
-                        main_container:mainNotification,
+                         main_container:mainNotification,
                         text:`Brak połączenia, ponawiam próbę.`,
                         typInformation:'alert',
                         timeInformation:'yes',

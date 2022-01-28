@@ -1,6 +1,6 @@
 export default async function main_profile(){
     const create_token = await import('../create_token.js')
-    const get_data_profile = await import('../get_data_from_server.js')
+    const get_add_data_to_server = await import('../get_data_from_server.js')
     const boxes = await import('../boxes.js')
     const change_name_F = await import('../after_auth/profile/change_name.js')
     const change_Email_F = await import('../after_auth/profile/change_email.js')
@@ -10,7 +10,7 @@ export default async function main_profile(){
     let avatar = null;
     const changeAvatarNotificationId = 'notificationChangeAvatarInfo'
     const avatarImageFromUser = document.querySelector('#imgNewAvatar')
-
+    const baseImgSrc = `data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`
     /** 
      * 
      * dodac przyciski do zmiany e-mail
@@ -44,10 +44,10 @@ export default async function main_profile(){
 
     function clearAvatar(){
         avatar = null
-        avatarImageFromUser.src = ""
+        avatarImageFromUser.src = baseImgSrc
     }
     //zmień avatar będzie dostępny tylko i wyłącznie po pobraniu danych
-    get_data_profile.default(notification_F.default,create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{
+    get_add_data_to_server.default(notification_F.default,create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{
         //wyswietlamy sloty
         document.querySelector('#user_slots').innerText=slots;
         //wyswietlam sloty zajęte
@@ -72,8 +72,9 @@ export default async function main_profile(){
             box_for_avatar_images.appendChild(img)
             img.addEventListener('click',function(){
                 avatar = this.dataset.id
-                if(avatarImageFromUser.src != "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==")
-                avatarImageFromUser.src = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                if(avatarImageFromUser.src != baseImgSrc)
+                avatarImageFromUser.src = baseImgSrc
+                return notificationChangeAvatar({text:'Wybrano avatara',typ:'info'})
             })
         }
 
@@ -82,23 +83,37 @@ export default async function main_profile(){
             clearAvatar()
             boxes.default('chAvatar',clearAvatar)
         })
+        document.querySelector('#button_select_avatar').addEventListener('click',()=>{
+            avatar = null
+        })
         document.querySelector('#button_select_avatar').addEventListener('change', async function(event){
                await add_file_F.default({maxSize:2100000,allowFormat:["image/jpeg","image/png","application/pdf"],event})
                     .then(({fileBase64,format})=>{
                     avatarImageFromUser.src = fileBase64
                     avatar = fileBase64
+                        return notificationChangeAvatar({text:'Plik przeszedł weryfikacje',typ:'info'})
                     })
                     .catch((error)=>{
-                        notification_F.default({
-                            main_container:`main_container_notification`,
-                            text:error,
-                            typInformation:'alert',
-                            timeInformation:'yes',
-                            remove:true,
-                            idNotification:changeAvatarNotificationId
-                        })
+                        avatar = null
+                        return notificationChangeAvatar({text:error,typ:'alert'})
                     })
-                    console.log(avatar)
+        })
+        document.querySelector('#button_change_avatar').addEventListener('click',async function(){
+            if(avatar === null)
+                return notificationChangeAvatar({text:'Nie wybrano żadnego avatara',typ:'alert'})
+            this.disabled = true
+            await get_add_data_to_server.default(notification_F.default,create_token,'/addNewUserAvatar',0,[{key:'avatar',value:avatar}])
+            .then(({token,avatar})=>{
+                user_avatar_HTML.src = token
+                user_avatar_HTML.dataset.Public = avatar.public
+                user_avatar_HTML.dataset.AvatarId = avatar.id
+                clearAvatar()
+                document.querySelector(`.BoxDialog[data-dialogName="chAvatar"]`).close();
+                this.disabled = false
+            }).catch((error)=>{
+                clearAvatar()
+                this.disabled = false
+            })
         })
     })
     .catch((data)=>{
@@ -112,6 +127,19 @@ export default async function main_profile(){
         })
     })
 
+
+    function notificationChangeAvatar({text,typ}){
+        if(document.querySelector(`#${changeAvatarNotificationId}`) != undefined)
+        document.querySelector(`#${changeAvatarNotificationId}`).remove()
+            notification_F.default({
+                main_container:`main_container_notification`,
+                text:text,
+                typInformation:typ,
+                timeInformation:'yes',
+                remove:true,
+                idNotification:changeAvatarNotificationId
+            })
+    }
 }
 
     
