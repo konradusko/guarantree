@@ -54,7 +54,6 @@ export default async function main_profile(){
         document.querySelector('#used_slots').innerText=itemsLength
         //wyświetlam zdjęcie użytkownika
 
-        console.log(public_avatars)
         const user_avatar_HTML = document.querySelector('#user_avatar')
         user_avatar_HTML.src = userAvatar.avatar_path
         user_avatar_HTML.dataset.Public = userAvatar.avatar_public
