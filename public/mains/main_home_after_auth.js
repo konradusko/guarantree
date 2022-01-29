@@ -120,14 +120,12 @@ export default async function home_main_after_auth(){
              sort_inner_element(true)
        })
    }).catch(()=>{
-      notification_F.default({
-         main_container:`main_container_notification`,
-         text:`Nie udało się pobrać danych, odśwież aplikacje.`,
-         typInformation:'alert',
-         timeInformation:'no',
-         remove:false,
-         idNotification:'ErrorConnection'
-     })
+   //    notification_F.default({
+   //       text:`Nie udało się pobrać danych, odśwież aplikacje.`,
+   //       typInformation:'alert',
+   //       timeInformation:'no',
+   //       remove:false,
+   //   })
    })
      
 }

@@ -37,10 +37,11 @@ const engine = (urlPath)=>{
                 }
             }
         }).catch((er)=>{
-            //tutaj wyświetlić błąd
+            //tutaj wyświetlić błąd // SPRAWDZIĆ TO
+            //POPRAWIC  TO BO JEST INNY UKLAD
             document.querySelector('#content').innerHTML=`
             <aside class="GW__TopInfo TopInfo" id="notification_main">
-            <div class="TopInfo__info" data-typinfo="alert" data-timeinfo="yes">
+            <div class="TopInfo__info" data-typinfo="alert" data-timeinfo="no">
                 <!--? Wiadomość na górze strony | zmienić data-typinfo="off" na np alert-->
                 <span style="color: white">Arkusz motywu nie został załadowany poprawnie</span>
                 </div>

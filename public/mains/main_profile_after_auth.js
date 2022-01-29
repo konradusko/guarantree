@@ -8,9 +8,9 @@ export default async function main_profile(){
     const notification_F = await import('../global_notification.js')
     const add_file_F = await import ('../add_file.js')
     let avatar = null;
-    const changeAvatarNotificationId = 'notificationChangeAvatarInfo'
     const avatarImageFromUser = document.querySelector('#imgNewAvatar')
     const baseImgSrc = `data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==`
+
     /** 
      * 
      * dodac przyciski do zmiany e-mail
@@ -73,7 +73,7 @@ export default async function main_profile(){
                 avatar = this.dataset.id
                 if(avatarImageFromUser.src != baseImgSrc)
                 avatarImageFromUser.src = baseImgSrc
-                return notificationChangeAvatar({text:'Wybrano avatara',typ:'info'})
+                return notificationChangeAvatar({text:'Wybrano avatara',typ:'accept'})
             })
         }
 
@@ -90,16 +90,16 @@ export default async function main_profile(){
                     .then(({fileBase64,format})=>{
                     avatarImageFromUser.src = fileBase64
                     avatar = fileBase64
-                        return notificationChangeAvatar({text:'Plik przeszedł weryfikacje',typ:'info'})
+                        return notificationChangeAvatar({text:'Plik przeszedł weryfikacje',typ:'accept'})
                     })
                     .catch((error)=>{
                         avatar = null
-                        return notificationChangeAvatar({text:error,typ:'alert'})
+                        return notificationChangeAvatar({text:error,typ:'info'})
                     })
         })
         document.querySelector('#button_change_avatar').addEventListener('click',async function(){
             if(avatar === null)
-                return notificationChangeAvatar({text:'Nie wybrano żadnego avatara',typ:'alert'})
+                return notificationChangeAvatar({text:'Nie wybrano żadnego avatara',typ:'info'})
             this.disabled = true
             await get_add_data_to_server.default(notification_F.default,create_token,'/addNewUserAvatar',0,[{key:'avatar',value:avatar}])
             .then(({token,avatar})=>{
@@ -116,27 +116,21 @@ export default async function main_profile(){
         })
     })
     .catch((data)=>{
-        notification_F.default({
-            main_container:`main_container_notification`,
-            text:`Nie udało się pobrać danych, odśwież aplikacje.`,
-            typInformation:'alert',
-            timeInformation:'no',
-            remove:false,
-            idNotification:'ErrorConnection'
-        })
+        // notification_F.default({
+        //     text:`Nie udało się pobrać danych, odśwież aplikacje.`,
+        //     typInformation:'alert',
+        //     timeInformation:'no',
+        //     remove:false,
+        // })
     })
 
 
     function notificationChangeAvatar({text,typ}){
-        if(document.querySelector(`#${changeAvatarNotificationId}`) != undefined)
-        document.querySelector(`#${changeAvatarNotificationId}`).remove()
             notification_F.default({
-                main_container:`main_container_notification`,
                 text:text,
                 typInformation:typ,
                 timeInformation:'yes',
                 remove:true,
-                idNotification:changeAvatarNotificationId
             })
     }
 }
