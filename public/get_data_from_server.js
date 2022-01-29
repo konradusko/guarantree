@@ -2,7 +2,7 @@ export default  function get_data_from_server(notificationFunction,create_token,
     //'/getProfileData'
     return new Promise((res,rej)=>{
         let count = 0,max_count = max_req_send,
-        countRequest =0, max_count_request = 10,
+        countRequest =0, max_count_request = 5,
          data_for_body = new Object
          if(arr_Addisional_data != undefined)
             for(const e in arr_Addisional_data){
@@ -58,7 +58,7 @@ export default  function get_data_from_server(notificationFunction,create_token,
                     })
                 setTimeout(() => {
                 return  get_date_check()
-                }, 4000);
+                }, 3000);
             })
         }
         get_date_check()

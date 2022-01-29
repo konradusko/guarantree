@@ -1,11 +1,11 @@
 import { makeId } from "../../modules/create_id/create_id.js"
 const user_avatar_info = (req,res,next)=>{
     res.locals.avatar_information={
-        allow_format:["image/png","image/jpg"],
+        allow_format:["image/png","image/jpg","image/jpeg"],
         max_size_of_file:2100000,
         custom_avatar:{
             public:true,
-            path:'./path1',
+            path:'public/Przechwytywanie.PNG',
             type:'TUTAJ MA BYC CUSTOM AVATAR',
             id:makeId(20)
            },

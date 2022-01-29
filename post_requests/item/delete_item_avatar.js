@@ -16,7 +16,7 @@ delete_item_avatar.post('/deleteItemAvatar', async(req,res)=>{
              const message =  await delete_avatar(config,uid,avatar_info)
             return res.json(message)
         } catch (error) {
-            return res.json({message:error})
+            return res.json(error)
         }
 
     } catch (error) {

@@ -48,6 +48,8 @@ export default async function main_profile(){
     }
     //zmień avatar będzie dostępny tylko i wyłącznie po pobraniu danych
     get_add_data_to_server.default(notification_F.default,create_token,'/getProfileData',10).then(({itemsLength,public_avatars,slots,userAvatar})=>{
+        const button_delete_avatar = document.querySelector('#button_delete_avatar'),
+            button_change_avatar =  document.querySelector('#button_change_avatar')
         //wyswietlamy sloty
         document.querySelector('#user_slots').innerText=slots;
         //wyswietlam sloty zajęte
@@ -86,7 +88,7 @@ export default async function main_profile(){
             avatar = null
         })
         document.querySelector('#button_select_avatar').addEventListener('change', async function(event){
-               await add_file_F.default({maxSize:2100000,allowFormat:["image/jpeg","image/png","application/pdf"],event})
+               await add_file_F.default({maxSize:2100000,allowFormat:["image/jpeg","image/png","image/jpg"],event})
                     .then(({fileBase64,format})=>{
                     avatarImageFromUser.src = fileBase64
                     avatar = fileBase64
@@ -97,10 +99,11 @@ export default async function main_profile(){
                         return notificationChangeAvatar({text:error,typ:'info'})
                     })
         })
-        document.querySelector('#button_change_avatar').addEventListener('click',async function(){
+        button_change_avatar.addEventListener('click',async function(){
             if(avatar === null)
                 return notificationChangeAvatar({text:'Nie wybrano żadnego avatara',typ:'info'})
             this.disabled = true
+            button_delete_avatar.disabled = true
             await get_add_data_to_server.default(notification_F.default,create_token,'/addNewUserAvatar',0,[{key:'avatar',value:avatar}])
             .then(({token,avatar})=>{
                 user_avatar_HTML.src = token
@@ -109,10 +112,36 @@ export default async function main_profile(){
                 clearAvatar()
                 document.querySelector(`.BoxDialog[data-dialogName="chAvatar"]`).close();
                 this.disabled = false
-            }).catch((error)=>{
-                clearAvatar()
+                button_delete_avatar.disabled = false
+            }).catch(({message})=>{
+                button_delete_avatar.disabled = false
                 this.disabled = false
+                return notificationChangeAvatar({text:message,typ:'info'})
             })
+        })
+        button_delete_avatar.addEventListener('click',async function(){
+            if(user_avatar_HTML.dataset.Public == true){
+                button_change_avatar.disabled = false
+                this.disabled = false
+                return notificationChangeAvatar({text:'Nie możesz usunąć publicznego avatara',typ:'info'})
+            }
+            button_change_avatar.disabled = true
+            this.disabled = true
+           await get_add_data_to_server.default(notification_F.default,create_token,'/deleteUserAvatar',0)
+           .then(({avatar,token})=>{
+                user_avatar_HTML.src = token
+                user_avatar_HTML.dataset.Public = avatar.public
+                user_avatar_HTML.dataset.AvatarId = avatar.id
+                button_change_avatar.disabled = false
+                this.disabled = false
+                clearAvatar()
+                document.querySelector(`.BoxDialog[data-dialogName="chAvatar"]`).close();
+           })
+           .catch(({message})=>{
+                button_change_avatar.disabled = false
+                this.disabled = false
+               return notificationChangeAvatar({text:message,typ:'info'})
+           })
         })
     })
     .catch((data)=>{

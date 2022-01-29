@@ -5,7 +5,7 @@ const delete_user_avatar_config = (req,res,next)=>{
         body_keys_require_to_validate:['token'],
         collection_id:"Users",
         get_user_info_type:'user_avatar',
-        create_token_minutes:20
+        create_token_minutes:30
     }
     next()
 }

@@ -10,15 +10,15 @@ delete_user_avatar.post('/deleteUserAvatar',async(req,res)=>{
         const avatar_info = res.locals.avatar_information
     
         if(!validate_body_keys({body:body,require_to_validate:config.body_keys_require_to_validate,allow_to_pass:config.body_keys_allow_to_pass}))
-        return res.json({message:'Body zawiera niedozwolone parametry.'})
+        return res.json({message:'Body zawiera niedozwolone parametry.',internal_error:true})
         try {
              const message =  await delete_avatar(config,uid,avatar_info)
             return res.json(message)
         } catch (error) {
-            return res.json({message:error})
+            return res.json(error)
         }
     } catch (error) {
-        return res.json({message:'Nie udało się usunac avatara.'})
+        return res.json({message:'Nie udało się usunac avatara.',internal_error:true})
     }
    
 

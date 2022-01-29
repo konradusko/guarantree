@@ -18,7 +18,7 @@ const delete_avatar = (...args)=>{
                 type:config.get_user_info_type
             })
             if(current_avatar.avatar_public)
-            return rej('Nie można usunąć publicznego avataru.')
+            return rej({message:'Nie można usunąć publicznego avataru',internal_error:true})
             
             //update zrobić na publicznego a potem usunac zdjecie
             const avatar = avatar_info.custom_avatar 
@@ -36,16 +36,17 @@ const delete_avatar = (...args)=>{
 
                 try {
                     const  token_acces = await create_token_photo(avatar.path,config.create_token_minutes)
-                    return res({message:'Avatar został usunięty.',token:token_acces[0]})
+                    delete avatar['path']
+                    return res({message:'Avatar został usunięty.',token:token_acces[0],avatar})
                 } catch (error) {
-                    return res({message:'Avatar został usunięty.'})
+                    return res({message:'Avatar został usunięty.',token:'',avatar})
                 }
 
             } catch (error) {
-                return rej('Coś poszło nie tak.')
+                return rej({message:'Coś poszło nie tak.',internal_error:true})
             }
         } catch (error) {
-            return rej('Coś poszło nie tak.')
+            return rej({message:'Coś poszło nie tak.',internal_error:true})
         }
     })
 }
