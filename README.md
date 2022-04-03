@@ -1,6 +1,6 @@
 # guarantree
 
-Celem było stworzenie aplikacji do gwarancji, niestety projekt został porzucony.
+Celem projektu jest stworzenie aplikacji do przetrzymywania gwarancji.
 
 Co zostało zrobione:
 -Rejestracja
